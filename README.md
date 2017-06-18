@@ -9,13 +9,13 @@ Node.js+Express+MongoDB
 #### 项目结构初始化
 
 ```
-npm insatll express
+npm install express
 
-npm insatll jade
+npm install jade
 
-npm insatll mongoose
+npm install mongoose
 
-npm insatll bower -g
+npm install bower -g
 
-npm insatll bootstrap
+npm install bootstrap
 ```
