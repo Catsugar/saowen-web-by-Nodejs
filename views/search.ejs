@@ -1,0 +1,47 @@
+﻿
+<!--主体-->
+<section class="main comWidth">
+<!--左边-->
+  <div class="main-left">
+      <h3><b>搜索结果</b></h3>
+      <% if (novels.length) { %> 
+      <ul class="collection-box">
+      <% novels.forEach(function(novel){ %>  
+        <li>
+          <a href='/novel/<%= novel.id %>' class="title"><%= novel.name %></a>
+          &nbsp;&nbsp;&nbsp;&nbsp;作者：
+          <a href='/author/<%= novel.author.id %>' class="author"><%=novel.author.name %></a>
+          &nbsp;&nbsp;&nbsp;&nbsp;评分：
+          <% var avg=0 %>
+          <% novel.comments.forEach(function(comment){ %> 
+            <% avg+=comment.score %>
+          <% }) %> 
+          <% avg =avg/novel.comments.length %>
+          <%=avg.toFixed(2) %>
+          <% for(var i=0;i<Math.floor(avg/2);i++){ %>
+            <i class="score iconfont icon-star"></i>
+          <% } %>
+          <% for(var i=0;i<Math.floor(avg)%2;i++){ %>
+            <i class="score iconfont icon-wujiaoxing"></i>
+          <% } %>
+          <br>
+          <b><%=novel.type %></b>/
+           <b><%=novel.progress %></b>/
+           <b><%=novel.len %></b>/
+           <b><%=novel.year %></b>/
+           <b><%=novel.taste %></b>/
+           <b><%=novel.actor %></b>/
+           <b><%=novel.web %></b><br>
+           <hr> 
+           <% if (novel.tags.length) { %> 
+              <% novel.tags.forEach(function(tag){ %>  
+                <a class="label"><%=tag %></a> 
+              <% }) %> 
+            <% } %>
+        </li>
+        <% }) %>
+      </ul>
+      <% } %> 
+  </div>
+  <% include includes/right %>
+</section>

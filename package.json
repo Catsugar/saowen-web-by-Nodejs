@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "cookie-parser": "^1.4.3"
+  },
+  "name": "saowen-web",
+  "description": ">仿扫文小院\r >用于练习\r <hr>",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "saowen"
+  ],
+  "author": "猫岁",
+  "license": "ISC"
+}

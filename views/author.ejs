@@ -1,0 +1,62 @@
+﻿
+<!--主体-->
+<section class="main comWidth">
+<!--左边-->
+  <div class="main-left">
+    <div class="novel-box">
+      <h1><b><%= author.name %></b></h1>&nbsp;&nbsp;&nbsp;&nbsp;共<i><%= author.loved.length %></i>人收藏
+      &nbsp;&nbsp;by&nbsp;<i><%= author.editor.name %></i>
+      <a href="javascript:void(0);" class="edit" data-toggle="modal" data-target="#myAuthor"><i class="iconfont icon-comment-pen"></i></a>
+      <button type="button" class="btn pull-right btn-warning btn-sm"  data-toggle="modal" data-target="#myLoved" >收藏</button>
+      <h3><b>简介</b></h3>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= author.description %></p>
+    </div>
+    <div class="love-box">
+      <h3><b>作品列表</b></h3>
+      <% if (author.novels.length) { %> 
+      <ul class="collection-box">
+      <% author.novels.forEach(function(novel){ %>  
+        <li>
+            <a href='/novel/<%= novel.id %>' class="title"><%= novel.name %></a>
+            &nbsp;&nbsp;&nbsp;&nbsp;作者：
+            &nbsp;&nbsp;&nbsp;&nbsp;平均分：
+            <% if (novel.comments.length) { %> 
+              <% var avg=0 %>
+              <% novel.comments.forEach(function(comment){ %> 
+              <% avg+=comment.score %>
+              <% }) %> 
+              <% avg =avg/ novel.comments.length %>
+              <%=avg.toFixed(2) %>
+              <% for(var i=0;i<Math.floor(avg/2);i++){ %>
+              <i class="score iconfont icon-star"></i>
+              <% } %>
+              <% for(var i=0;i<Math.floor(avg)%2;i++){ %>
+              <i class="score iconfont icon-wujiaoxing"></i>
+              <% } %>
+            <% }else{%>
+              未评分
+            <% } %>  
+           <br>
+           <b><%=novel.type %></b>/
+           <b><%=novel.progress %></b>/
+           <b><%=novel.len %></b>/
+           <b><%=novel.year %></b>/
+           <b><%=novel.taste %></b>/
+           <b><%=novel.actor %></b>/
+           <b><%=novel.web %></b><br>
+           <hr> 
+           <% if (novel.tags.length) { %> 
+              <% novel.tags.forEach(function(tag){ %>  
+                <a class="label"><%=tag %></a> 
+              <% }) %> 
+            <% } %>
+        </li>
+        <% }) %> 
+      </ul>
+      <% } %>
+    </div>
+  </div>
+  <% include includes/right %>
+  <% include includes/alertbox %>
+  <% include includes/edit-authorbox %>
+</section>

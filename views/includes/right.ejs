@@ -1,0 +1,93 @@
+<!--右边-->
+  <div class="main-right"> 
+   <input type="checkbox" name="op" class="op"  id="op-1">
+   <label for="op-1">
+    <div class="right-title">
+      <h3 class="label-default"><a>热门作品</a></h3>
+      <div class="right-content">
+      <% if (novelRanks.length) { %> 
+      <ul class="novel-list">
+        <% novelRanks.forEach(function(novel){ %>  
+        <li>
+          <a href='/novel/<%= novel.id %>' class="title"><%= novel.name %></a>
+          &nbsp;作者：<a href='/author/<%= novel.author.id %>' class="author"><%= novel.author.name %></a>
+          <% var avg=0 %>
+          <% novel.comments.forEach(function(comment){ %> 
+            <% avg+=comment.score %>
+          <% }) %> 
+          <% avg =avg/novel.comments.length %>
+          <i class="pull-right" style="font-size:12px"><b><%=novel.comments.length %></b>人评分&nbsp;<b><%=avg.toFixed(2) %></b>&nbsp;&nbsp;</i>  
+        </li>
+        <% }) %>
+      </ul>
+      <% } %>
+     </div>
+    </div>
+   </label>
+   <input type="checkbox" name="op" class="op"  id="op-2">
+   <label for="op-2">
+     <div class="right-title">
+       <h3 class="label-default"><a>热门作者</a></h3>
+       <div class="right-content">
+         <% if (authorRanks.length) { %> 
+         <ul class="author-list">
+           <% authorRanks.forEach(function(author){ %>  
+           <li>
+             <a href='/author/<%= author.id %>' class="author"><%= author.name %></a>
+             &nbsp;&nbsp;代表作：
+             <% if (author.novels.length) { %>
+             <a href='/novel/<%= author.novels[0].id %>' class="title"><%= author.novels[0].name %></a>
+             <% } %>
+             <i class="pull-right"><b><%= author.loved.length %></b>人收藏&nbsp;&nbsp;</i>
+           </li>
+           <% }) %>
+         </ul>
+         <% } %>
+       </div>
+     </div>
+   </label>
+   <input type="checkbox" name="op" class="op"  id="op-3">
+   <label for="op-3">
+     <div class="right-title">
+       <h3 class="label-default"><a>热门扫文单</a></h3>
+       <div class="right-content">
+         <% if (collectionRanks.length) { %> 
+         <ul class="collection-list">
+           <% collectionRanks.forEach(function(collection){ %>  
+           <li>【推荐】<a href='/collect/<%= collection.id %>' class="author"><%= collection.name %></a>&nbsp;&nbsp;<b><%= collection.loved.length %></b>人收藏
+           <span class="badge pull-right"><%= collection.novels.length %>篇</span></li>
+           <% }) %>
+         </ul>
+         <% } %>
+       </div>
+     </div>
+   </label>
+   <input type="checkbox" name="op" class="op"  id="op-4" checked>
+   <label for="op-4">
+     <div class="right-title">
+       <h3 class="label-default"><a>热门标签</a></h3>
+       <div class="right-content">
+         <div class="ad-band">
+           <a class="label tip">文笔好</a> 
+           <a class="label tip">狗血</a> 
+           <a class="label tip">年下</a> 
+           <a class="label tip">搞笑</a> 
+           <a class="label tip">校园</a> 
+           <a class="label tip">生子</a>
+           <a class="label tip">古风</a> 
+           <a class="label tip">强强</a> 
+           <a class="label tip">虐</a> 
+           <a class="label tip">he</a> 
+           <a class="label tip">短篇</a> 
+           <a class="label tip">脑洞</a>
+           <a class="label tip">文笔好</a> 
+           <a class="label tip">娱乐圈</a> 
+           <a class="label tip">奇幻</a> 
+           <a class="label tip">主攻</a> 
+           <a class="label tip">1V1</a> 
+           <a class="label tip">重生</a>
+         </div>
+       </div>
+     </div>
+   </label>
+  </div>
