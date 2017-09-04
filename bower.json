@@ -1,0 +1,22 @@
+{
+  "name": "saowen-web",
+  "description": "仿扫文小院",
+  "main": "",
+  "authors": [
+    "catsugar <773817248@qq.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "saowen"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/",
+    "test",
+    "tests"
+  ]
+}

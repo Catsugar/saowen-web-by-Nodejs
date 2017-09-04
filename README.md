@@ -1,9 +1,11 @@
 ﻿# Node建站
->书籍管理系统
+>仿扫文小院
+>用于练习和学习
+>所有素材来自网络
 <hr>
 
 ### 用到的技术栈
-Node.js+Express+MongoDB
+Node.js+Express+MongoDB+ejs
 <hr>
 
 #### 项目结构初始化
@@ -11,7 +13,7 @@ Node.js+Express+MongoDB
 ```
 npm install express
 
-npm install jade
+npm install ejs
 
 npm install mongoose
 
@@ -19,3 +21,23 @@ npm install bower -g
 
 npm install bootstrap
 ```
+#### 进度记录
+已经搭好了基本框架，目前做好的：
+* 基本框架和每个页面的渲染
+* 小说，作者，文单的新建，只能在后台管理页操作。
+* 评论，文单的删除，只能在后台管理页操作。
+* 小说的评论，和添加tag，在小说详情页面操作。
+* 小说和文单信息的重新编辑，在小说详情页面和文单详情页面操作。
+
+还没有做登录和收藏功能，排行榜功能好像也有点问题，加油。
+
+#### 项目预览
+预览1<br>
+![截图1](http://wx1.sinaimg.cn/large/b64d25bfgy1fj7vtqtrxhj20m80at775.jpg)
+预览2<br>
+![截图2](http://wx4.sinaimg.cn/large/b64d25bfgy1fj7vtq5pb9j20m80apwg9.jpg)
+预览3<br>
+![截图3](http://wx3.sinaimg.cn/large/b64d25bfgy1fj7vtpjd4xj20m80atgsv.jpg)
+预览4<br>
+![截图4](http://wx1.sinaimg.cn/large/b64d25bfgy1fj7vtowhjwj20m80autcb.jpg)
+
