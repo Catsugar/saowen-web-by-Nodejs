@@ -37,7 +37,7 @@ npm install bootstrap
 预览2<br>
 ![截图1](https://catsugar.github.io/pics/4-2.png)<br>
 预览3<br>
-![截图1](https://catsugar.github.io/pics/4-4.png)<br>
+![截图1](https://catsugar.github.io/pics/4-3.png)<br>
 预览4<br>
 ![截图1](https://catsugar.github.io/pics/4-4.png)<br>
 
