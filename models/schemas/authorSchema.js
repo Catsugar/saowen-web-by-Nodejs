@@ -28,19 +28,6 @@ authorSchema.pre('save', function (next) {
     }
     next();
 });
-// 模式的静态方法
-authorSchema.statics = {
-    fetch: function (cb) {
-        return this
-            .find({})
-            .sort('meta.updateAt')
-            .exec(cb)
-    },
-    findById: function (ID, cb) {
-        return this
-            .findOne({id: ID})
-            .exec(cb)
-    }
-}
+
 // 导出
 module.exports = authorSchema;

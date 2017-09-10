@@ -9,6 +9,7 @@
 	   <div class="modal-body">
       <form method="post" action="/new/novel">
          <table>
+         <input type="text" name='newnovel[editor]' style="display: none" value="<%= _user._id %>" >
           <tr>
             <td>标题：</td><td><input type="text" name='newnovel[name]'></td>
             <td>作者：</td><td><input type="text" name='newnovel[author]'></td>

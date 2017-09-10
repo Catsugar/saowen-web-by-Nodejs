@@ -1,13 +1,15 @@
 var mongoose = require('mongoose'),
         Schema = mongoose.Schema,
-        ObjectId = Schema.Types.ObjectId;
+        ObjectId = Schema.Types.ObjectId,
+        bcrypt= require('bcryptjs'),//加密库
+        SALT_WORK_FACTOR=10;
+
 var userSchema=new Schema({
     id: {type:String,unique:true},
-    name: String,
+    name: {type:String,unique:true},
     password: String,
     emaill: String,
     description: String,
-    isLoad: Boolean,
     photo: String,
     editnovel: [{type: ObjectId, ref:'Novel'}],
     editcollect: [{type: ObjectId, ref:'Collection'}],
@@ -28,13 +30,31 @@ var userSchema=new Schema({
 
 // 表示每次存储数据之前都先调用这个方法
 userSchema.pre('save', function (next) {
+    var user=this;
     if (this.isNew) {
         this.meta.createAt = this.meta.updateAt = Date.now();
     } else {
         this.meta.updateAt = Date.now();
     }
-    next();
+    //生成随机的盐
+    bcrypt.genSalt( SALT_WORK_FACTOR,function (err,salt) {
+      if(err) return(err);
+      bcrypt.hash(user.password,salt,function(err, hash){
+        if(err) return(err);
+        user.password=hash;
+        next();
+      })
+    })
 });
+//模式的实例方法
+userSchema.methods={
+    comparePassword: function (_password, cb) {
+       bcrypt.compare(_password, this.password, function(err,isMatch){
+        if(err) {return cb(err)};
+        cb(null,isMatch); 
+       })
+    }
+}
 // 模式的静态方法
 userSchema.statics = {
     fetch: function (cb) {

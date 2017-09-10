@@ -30,40 +30,6 @@ collectionSchema.pre('save', function (next) {
     }
     next();
 });
-// 模式的静态方法
-collectionSchema.statics = {
-    fetch: function (cb) {
-        return this
-            .find({})
-            .sort('meta.updateAt')
-            .exec(cb)
-    },
-    findById: function (ID, cb) {
-        return this
-            .findOne({id: ID})
-            .exec(cb)
-    }
-    /*renderChild: function(cb) {
-        this.forEach(function(item){
-            var keys=Object.keys(item);
-            for(var i=0;i<keys.length;i++){
-               if(keys.type==ObjectId){
-               console.log(db[key.ref].findOne({"_id":key}));
-               Object.keys(item)[i]=db[key.ref].findOne({"_id":key});
-               }
-            }
-        })
-        return this
-            .find({})
-            .sort('meta.updateAt')
-            .exec(cb)
-    },
-    lovedSort: function(cb) {
-        return this
-        .find({})
-        .sort('loved')
-        .exec(cb);
-    } */
-}
+
 // 导出
 module.exports = collectionSchema;

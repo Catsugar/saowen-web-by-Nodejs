@@ -10,6 +10,7 @@
 	  <div class="modal-body">
 	     <form method="post" action="/edit/author">
 	     <input type="text" style="display: none" name='newauthor[id]' value="<%= author.id %>" >
+	     <input type="text" name='newauthor[editor]' style="display: none" value="<%= _user._id %>" >
 		 <input type="text" name='newauthor[name]'  value="<%= author.name %>" >
          <input type="text" name='newauthor[description]' value="<%= author.description %>" >
 		 <div class="modal-btn">

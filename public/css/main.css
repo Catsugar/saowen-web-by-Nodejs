@@ -25,9 +25,7 @@ hr{padding:0;margin:10px 0;}
 	box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,0.5);
 	border-radius:5px;
 	padding: 10px;
-	z-index:50;
-	
-}
+	z-index:50;}
 #backbtn:hover a{color:#FFF;}
 #backbtn:hover {
 	background-color: rgba(0,0,0,0.5);
@@ -102,14 +100,31 @@ hr{padding:0;margin:10px 0;}
 .nav-right ul{
 	margin-left:20px;
 	width:200px;}
-.user-head{
-	display:none;}
 .btnbox a{
 	margin-right:15px;
 	margin-top:-4px;}
+.user-head{position: relative;}
+//.user-head:hover div{display: block;}
 .user-head a{
 	color:#eee;
 	margin-left:10px;}
+.user-list{
+	position: absolute;
+	top:50px;
+	left: -20px;
+	width: 100px;
+	height: 140px;
+	background-color: #333;
+	border-radius: 5px;
+	border: 1px #333 solid;
+	z-index: 500;
+	display: none;}
+.user-list div{
+	width: 100%;
+	padding:10px;
+	flex:none;
+	color:#eee;}
+.user-list div:hover{background-color: #666;}
 /******************布局********************/
 .main{
 	position:relative;
@@ -390,9 +405,19 @@ textarea{
 	min-height:500px;
 	padding:20px 1px;
 	z-index:0;}
+.back img{box-shadow: 0  0 0.5rem rgba(0,0,0,0.5);}
+.back img:hover{box-shadow: 0 0 1rem rgba(0,0,0,0.5);}
 .back h3{
 	text-align:center;
-	padding-bottom:20px;}
+	padding :20px 0 0 0;}
+.des_box{
+	text-align:center;
+	margin: 0 auto;
+	font-size: 13px;
+	color:#666;
+	padding-bottom: 20px;
+}
+.des_box span{font-size: 14px;padding-right: 15px;}
 .tab-content{padding:30px;}
 .tab-content li{
 	border-bottom:1px dotted #999999;

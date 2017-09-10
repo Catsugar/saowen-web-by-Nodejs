@@ -9,7 +9,8 @@
 	   </div>
 	   <div class="modal-body">
 	   <form method="post" action="/edit/collect">
-	     <input type="text" style="display: none" name='newcollect[id]' value="<%= collection.id %>" >
+	     <input type="text" style="display: none" name='newcollect[id]' value="<%= collection.id %>" ><input type="text" name='newnovel[editor]' style="display: none" value="<%= _user._id %>" >
+	     <input type="text" name='newcollect[editor]' style="display: none" value="<%= _user._id %>" >
 		 <input type="text" name='newcollect[name]' value="<%=collection.name %>" >
          <input type="text" name='newcollect[description]' value="<%=collection.description %>">
 		 <div class="modal-btn">

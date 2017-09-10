@@ -18,7 +18,7 @@
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= collect.name %></a></li>
              <% }) %> 
              <% } %>
-             <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#myClollect">新建扫文单</a></li>
+             <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#myCollect">新建扫文单</a></li>
            </ul>
        </span>
       <br>
@@ -62,6 +62,7 @@
     <div class="love-box">
     <form method="post" action="/new/comment">
       <input type="text" style="display: none" name='newcomment[novelID]' value="<%= novel._id %>" >
+      <input type="text" name='newcomment[userID]' style="display: none" value="<%= _user._id %>" >
       状态：
       <input type="radio" name='newcomment[state]' class="state" value='想看' id="state-1">
       <label for="state-1" type="button" class="btn btn-sm btn-default">想看</label>
@@ -119,3 +120,4 @@
 <% include includes/right %>
 </section>
 <% include includes/edit-novelbox %>
+<% include includes/add-collectbox %>

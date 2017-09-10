@@ -9,6 +9,7 @@
 	   </div>
 	   <div class="modal-body">
 	     <form method="post" action="/new/collect">
+	     <input type="text" name='newcollect[editor]' style="display: none" value="<%= _user._id %>" >
 		 <input type="text"  placeholder="输入名称" name='newcollect[name]'>
          <input type="text"  placeholder="一句话描述文単" name='newcollect[description]' >
 		 <div class="modal-btn">

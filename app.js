@@ -2,7 +2,6 @@ var express=require('express'),//加载模块
     path=require('path'),
     bodyParser = require('body-parser'),
     mongoose=require('mongoose'),
-    //mongoStore = require('connect-mongo')(session),
     _underscore=require('underscore'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
@@ -12,6 +11,12 @@ var app=express();//启动web服务器
 //创建服务器实例，设置端口
 app.set('views','./views');
 app.set('view engine','ejs');
+app.use(cookieParser());
+app.use(session({
+  secret: 'saowen',
+  resave: false,
+  saveUninitialized: true
+}))
 app.listen(port)//监听端口
 app.set('port',3000)
 console.log(port+'端口启动')
@@ -39,10 +44,22 @@ app.locals.moment = require('moment');
 app.use(bodyParser.urlencoded({ extended: true }));
 //设置静态路由
 app.use(express.static('public'));
-app.use(cookieParser());
+
 //****************************************************************************************
+//预处理
+app.use((req, res, next) => {
+  var _user = req.session.user;
+  if (_user) {
+    res.locals.user = _user;
+  }
+  next();
+});
+
 //首页
 var Methodindex=function(req,res){
+  console.log('user in session:');
+  console.log(req.session.user);
+  var _user = req.session.user;
   novels.find({}).sort({'comments':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
     if(err){console.log(err);}
     authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
@@ -56,7 +73,8 @@ var Methodindex=function(req,res){
 		        comments: comments,
             novelRanks:novelRanks,
             authorRanks:authorRanks,
-            collectionRanks:collectionRanks
+            collectionRanks:collectionRanks,
+            _user:_user
 	        })
         })
       })
@@ -65,6 +83,7 @@ var Methodindex=function(req,res){
 }
 //作者列表
 var Methodauthorlist=function(req,res){
+  var _user = req.session.user;
   novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
     if(err){console.log(err);}
     authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
@@ -78,7 +97,9 @@ var Methodauthorlist=function(req,res){
             authors: authors,
             novelRanks:novelRanks,
             authorRanks:authorRanks,
-            collectionRanks:collectionRanks
+            collectionRanks:collectionRanks,
+            _user:_user
+
           })
         })
       })
@@ -87,6 +108,7 @@ var Methodauthorlist=function(req,res){
 }
 //书单列表
 var Methodcollectlist=function(req,res){
+  var _user = req.session.user;
   novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
     if(err){console.log(err);}
     authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
@@ -100,7 +122,8 @@ var Methodcollectlist=function(req,res){
             collections: collections,
             novelRanks:novelRanks,
             authorRanks:authorRanks,
-            collectionRanks:collectionRanks
+            collectionRanks:collectionRanks,
+            _user:_user
           })
         })
       })
@@ -109,6 +132,7 @@ var Methodcollectlist=function(req,res){
 }
 //作者详情
 var Methodauthor=function(req,res){
+  var _user = req.session.user;
   novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
     if(err){console.log(err);}
     authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
@@ -124,7 +148,8 @@ var Methodauthor=function(req,res){
       		  author: author,
             novelRanks:novelRanks,
             authorRanks:authorRanks,
-            collectionRanks:collectionRanks
+            collectionRanks:collectionRanks,
+            _user:_user
           })
         })
       })
@@ -133,6 +158,7 @@ var Methodauthor=function(req,res){
 }
 //书单详情
 var Methodcollect=function(req,res){
+  var _user = req.session.user;
   novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
     if(err){console.log(err);}
     authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
@@ -148,7 +174,8 @@ var Methodcollect=function(req,res){
       		  collection: collection,
             novelRanks:novelRanks,
             authorRanks:authorRanks,
-            collectionRanks:collectionRanks
+            collectionRanks:collectionRanks,
+            _user:_user
           })
         })
       })
@@ -157,6 +184,7 @@ var Methodcollect=function(req,res){
 }
 //小说详情
 var Methodnovel=function(req,res){
+  var _user = req.session.user;
   novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
     if(err){console.log(err);}
     authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
@@ -173,7 +201,7 @@ var Methodnovel=function(req,res){
             novelRanks:novelRanks,
             authorRanks:authorRanks,
             collectionRanks:collectionRanks,
-            curID:novel.id
+            _user:_user
           })
         })
       })
@@ -182,6 +210,7 @@ var Methodnovel=function(req,res){
 }
 //后台页
 var Methodback=function(req,res){
+  var _user = req.session.user;
   var ID = req.params.id;
   users.findOne({id: ID})
   .populate('editcollect')
@@ -193,12 +222,14 @@ var Methodback=function(req,res){
     if(err){console.log(err);};
     res.render('back',{
 		  title:user.name+'的后台',
-		  user: user
+		  user: user,
+      _user:_user
     })
   })
 }
 //搜索页
 var Methodsearch=function(req,res){
+  var _user = req.session.user;
 	novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
     if(err){console.log(err);}
     authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
@@ -215,7 +246,8 @@ var Methodsearch=function(req,res){
             novels: novels,
             novelRanks:novelRanks,
             authorRanks:authorRanks,
-            collectionRanks:collectionRanks
+            collectionRanks:collectionRanks,
+            _user:_user
           })
         })
       })
@@ -225,11 +257,9 @@ var Methodsearch=function(req,res){
 //**********************************************************************************************************/
 //小说增加
 var Addnovel=function(req,res){
-  /*console.log(req.params.id);*/
 	var novelObj = req.body.newnovel;
   var Newname=novelObj.name;
   var Newauthor=novelObj.author;
-  var Newuser='597d2432c6213c1130b9fba9';
   if((Newname=='undefined' || '') || (Newauthor=='undefined' || '')){
     console.log('没有填写完整');
     return;
@@ -242,7 +272,8 @@ var Addnovel=function(req,res){
         if (err) {console.log(err);}
         authors.findOne({name:Newauthor}).exec(function (err, author) {
           if (err) {console.log(err);}
-          users.findOne({_id:Newuser}).exec(function (err, user) {
+          users.findOne({_id:novelObj.editor}).exec(function (err, user) {
+            console.log(user);
             if (err) {console.log(err);}
             if(author==null){ //作者不存在----先创作者，创小说
               var authorObj=createAuthor(novelObj,authorLen); 
@@ -253,7 +284,7 @@ var Addnovel=function(req,res){
               var authorObj=author; 
             }
             var _novel=createNovel(novelObj,novelLen,authorObj); 
-            _novel.save(function (err, novel) {
+             _novel.save(function (err, novel) {
               if (err) {console.log(err);}
               res.redirect('/novel/' + novel.id);
             });
@@ -269,7 +300,7 @@ var Addnovel=function(req,res){
             var _user = _underscore.extend(user, userObj);
             _user.save(function (err, user) {
               if (err) {console.log(err);}
-            });
+            })
           })
         })
       })
@@ -280,12 +311,11 @@ var Addnovel=function(req,res){
 var Addcollect=function(req,res){
   var collectObj = req.body.newcollect;
   var Newname=collectObj.name;
-  var Newuser='597d2432c6213c1130b9fba9';
   collections.findOne({}).sort({'id': -1}).exec(function(err,lastcollect) {
     var collectLen=parseInt(lastcollect.id.slice(2));
     collections.findOne({name:Newname}).exec(function (err, collect) {
       if (err) {console.log(err);}
-      users.findOne({_id:Newuser}).exec(function (err, user) {
+      users.findOne({_id:collectObj.editor}).exec(function (err, user) {
         if (err) {console.log(err);}
         if(collect==null){//书单不存在
           var _collect=createCollect(collectObj,collectLen);
@@ -300,8 +330,8 @@ var Addcollect=function(req,res){
           _user.save(function (err, user) {
             if (err) {console.log(err);}
           });
-        } 
-      })
+        }
+      }) 
     })
   })
 }
@@ -309,15 +339,13 @@ var Addcollect=function(req,res){
 var Addcomment=function(req,res){
   var commentObj = req.body.newcomment;
   var novelID=commentObj.novelID;
-  var Newuser='597d2432c6213c1130b9fba9';
   novels.findOne({_id:novelID}).exec(function (err, novel) {
     comments.findOne({}).sort({'id': -1}).exec(function(err,lastcomment) {
-      var commentLen=parseInt(lastcomment.id.slice(2));
-      if (err) {console.log(err);}
-      users.findOne({_id:Newuser}).exec(function (err, user) {
+      users.findOne({_id:commentObj.userID}).exec(function (err, user) {
+        var commentLen=parseInt(lastcomment.id.slice(2));
         if (err) {console.log(err);}
         var _comment=createComment(commentObj,commentLen); 
-         _comment.save(function (err, comment) {
+        _comment.save(function (err, comment) {
           if (err) {console.log(err);}  
         })
         var novelObj=novel; 
@@ -339,25 +367,7 @@ var Addcomment=function(req,res){
     })
   })
 }
-//增加用户
-var Adduser=function(req,res){
-  var userObj = req.body.newuser;
-  var Newname=userObj.name;
-  var Newemaill=userObj.emaill;
-  users.findOne({}).sort({'id': -1}).exec(function(err,lastuser) {
-    var userLen=parseInt(lastuser.id.slice(2));
-    users.findOne({$or: [{name:Newname}, {emaill:Newemaill}]}).exec(function (err, user) {
-      if (err) {console.log(err);}
-      if(user==null ){//书单不存在
-        var _user=createUser(userObj,userLen); 
-        _user.save(function (err, user) {
-          if (err) {console.log(err);}
-          res.redirect('/back/' + user.id);
-        });
-      }
-    })
-  })
-}
+
 /*******************************************************************/
 //增加作者函数
 function createAuthor(novelObj,len) {
@@ -365,7 +375,7 @@ function createAuthor(novelObj,len) {
       id: 'a'+("000000" + (len+1)).slice(-6),
       name: novelObj.author,
       description: '',
-      editor:"597d2432c6213c1130b9fba9",
+      editor:  novelObj.editor,
       meta: {'createAt': Date.now(),
              'updateAt': Date.now()},
       loved: [],
@@ -378,7 +388,7 @@ function createNovel(novelObj,len,authorObj) {
   var _novel = new novels({
       id: 'n'+("000000" + (len+1)).slice(-6),
       name:'《' + novelObj.name + '》',
-      editor: "597d2432c6213c1130b9fba9",
+      editor: novelObj.editor,
       meta: {'createAt': Date.now(),
              'updateAt': Date.now()},
       author: authorObj._id,
@@ -402,8 +412,7 @@ function createUser(userObj,len) {
       name: userObj.name,
       password: userObj.password,
       emaill: userObj.emaill,
-      description: userObj.description,
-      isLoad: true,
+      description: 'Ta还木有个人介绍呢',
       photo:'photo/'+Math.round(Math.random()*10)+'.jpg',
       editnovel: [],
       editcollect: [],
@@ -421,7 +430,7 @@ function createCollect(collectObj,len) {
       id: 'c'+("000000" + (len+1)).slice(-6),
       name: collectObj.name,
       description: '',
-      editor: "597d2432c6213c1130b9fba9",
+      editor:collectObj.editor,
       meta: {'createAt': Date.now(),
              'updateAt': Date.now()},
       cover:'cover/b'+Math.round(Math.random()*10)+'.jpg' ,       
@@ -434,7 +443,7 @@ function createCollect(collectObj,len) {
 function createComment(commentObj,len) {
   var _comment = new comments({
       id: 'p'+("000000" + (len+1)).slice(-6),
-      userID: "597d2432c6213c1130b9fba9",
+      userID: commentObj.userID,
       novelID: commentObj.novelID,
       meta: {'createAt': Date.now(),
              'updateAt': Date.now()},
@@ -481,6 +490,22 @@ var Editcollect=function (req, res) {
     _collect.save(function (err, collect) {
       if (err) {console.log(err);}
       res.redirect('/collect/' + collect.id);
+    })
+  })
+}
+//编辑用户
+var Edituser=function (req, res) {
+  var userObj = req.body.newuser;
+  var ID=userObj.id;
+  var DES=userObj.description;
+  users.findOne({id:ID}).exec(function (err, user) {
+    if (err) {console.log(err);}
+    var edituser=user;
+    edituser.description=DES;
+    var _user = _underscore.extend(user, edituser); 
+    _user.save(function (err, user) {
+      if (err) {console.log(err);}
+      res.redirect('/back/' + user.id);
     })
   })
 }
@@ -612,6 +637,62 @@ function removeByValue(arr, val) {
     }
   }
 }
+/**********************************************/
+//增加用户----注册
+var Adduser=function(req,res){
+  var userObj = req.body.newuser;//req.param('user')
+  var Newname=userObj.name;
+  var Newemaill=userObj.emaill;
+  users.findOne({}).sort({'id': -1}).exec(function(err,lastuser) {
+    var userLen=parseInt(lastuser.id.slice(2));
+    users.findOne({$or: [{name:Newname}, {emaill:Newemaill}]}).exec(function (err, user) {
+      if (err) {console.log(err);}
+      if(user!==null){
+        console.log("该用户已经被注册");
+      } else if(user==null ){//用户不存在
+        var _user=createUser(userObj,userLen); 
+        _user.save(function (err, user) {
+          if (err) {console.log(err);}
+        });
+      }
+    })
+  })
+  res.redirect('/');
+}
+//登录
+var Signin=function(req,res){
+  var userObj = req.body.newuser;
+  var logname=userObj.name;
+  var logpassword=userObj.password;
+  users.findOne({name:logname}).exec(function (err, user) {
+    if (err) {console.log(err);}
+    if(user==null){
+      console.log("不存在该用户");
+      return res.redirect('/');
+    } else if(user!==null ){
+      console.log("存在该用户");
+      user.comparePassword(logpassword,function (err,isMatch) {
+        if (err) {console.log(err);}
+        if(isMatch){
+          console.log("密码正确，可以登录");
+          req.session.user=user;
+          res.redirect('/back/' + user.id);  
+          
+        }else{
+          console.log("密码不正确");
+          res.redirect('/');
+        }          
+      })
+    }
+  })
+}
+//登出
+var Logout=function(req,res){
+  delete req.session.user;
+  delete app.locals.user;
+  console.log("退出成功");
+  res.redirect('/');
+}
 //各种模型路由
 app.route('/').get(Methodindex);
 app.route('/author-list').get(Methodauthorlist);
@@ -624,12 +705,14 @@ app.route('/search/:key').get(Methodsearch);
 app.route('/new/novel').post(Addnovel);
 app.route('/new/collect').post(Addcollect);
 app.route('/new/comment').post(Addcomment);
-app.route('/new/user').post(Adduser);
+app.route('/new/user').post(Adduser);//注册
 app.route('/edit/novel').post(Editnovel);
 app.route('/edit/author').post(Editauthor);
 app.route('/edit/collect').post(Editcollect);
+app.route('/edit/user').post(Edituser);
 app.route('/back/admin').delete(Admin);
 app.route('/back/love').delete(Cancel);
-
+app.route('/user/signin').post(Signin);//登录
+app.route('/user/logout').get(Logout);//登出
 
 

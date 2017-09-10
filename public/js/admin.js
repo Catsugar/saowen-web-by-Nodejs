@@ -31,4 +31,7 @@ $(function () {
             }
         });
     });
+    /*if (isExist === 1) {
+        $('#myAlert').modal('show');
+    }*/
 });

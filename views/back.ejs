@@ -2,7 +2,12 @@
 <!--主体-->
 <section class="back">
   <img src='/<%=user.photo %>' class="img-circle  center-block" width="100px">
+  <input type="text" style="display: none" name='newuser[id]' value="<%= user.id %>" >
   <h3><b><%=user.name %></b></h3>
+  <div class="des_box">
+    <span class="des_show"><%=user.description %></span>
+    <i class="iconfont icon-comment-pen changebtn" data-toggle="modal" data-target="#myUser"></i>
+  </div>
   <div>
     <ul id="myTab" class="nav nav-tabs">
       <li class="active"><a href="#my-saowen" data-toggle="tab">我的扫文</a></li>
@@ -15,7 +20,7 @@
             <li><a href="#" data-toggle="modal" data-target="#myCollect">创建扫文单</a></li>
         </ul>
       </li>
-      <li><a href="/">退出</a></li>
+      <li><a href="/user/logout">退出</a></li>
     </ul>
  </div>
  <div id="myTabContent" class="tab-content">
@@ -136,7 +141,6 @@
 
  </div>
  </section>
- <% include includes/alertbox %>
-<% include includes/add-novelbox %>
-<% include includes/add-collectbox %>
-
+ <% include includes/add-novelbox %>
+ <% include includes/add-collectbox %>
+ <% include includes/edit-userbox %>

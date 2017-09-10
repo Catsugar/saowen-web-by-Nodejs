@@ -21,6 +21,29 @@ npm install bower -g
 
 npm install bootstrap
 ```
+#### Grunt 集成
+
+```
+npm install grunt --save-dev
+
+npm install grunt-cli -g
+
+npm install grunt-contrib-watch --save-dev
+
+npm install grunt-concurrent --save-dev
+
+npm install grunt-nodemon --save-dev
+
+npm install bcryptjs --save-dev
+
+```
+#### 会话持久化
+
+```
+npm install connect-mongo --save
+
+```
+
 #### 进度记录
 已经搭好了基本框架，目前做好的：
 * 基本框架和每个页面的渲染
@@ -40,4 +63,5 @@ npm install bootstrap
 ![截图1](https://catsugar.github.io/pics/4-3.png)<br>
 预览4<br>
 ![截图1](https://catsugar.github.io/pics/4-4.png)<br>
+
 
