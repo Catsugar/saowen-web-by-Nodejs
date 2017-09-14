@@ -1,0 +1,146 @@
+﻿
+<!--主体-->
+<section class="back">
+  <img src='/<%=user.photo %>' class="img-circle  center-block" width="100px">
+  <input type="text" style="display: none" name='newuser[id]' value="<%= user.id %>" >
+  <h3><b><%=user.name %></b></h3>
+  <div class="des_box">
+    <span class="des_show"><%=user.description %></span>
+    <i class="iconfont icon-comment-pen changebtn" data-toggle="modal" data-target="#myUser"></i>
+  </div>
+  <div>
+    <ul id="myTab" class="nav nav-tabs">
+      <li class="active"><a href="#my-saowen" data-toggle="tab">我的扫文</a></li>
+      <li><a href="#my-create" data-toggle="tab">我的创建</a></li>
+      <li><a href="#my-love" data-toggle="tab">我的收藏</a></li>
+      <li class="dropdown">
+        <a href="#" id="create" class="dropdown-toggle" data-toggle="dropdown">创建&nbsp;<b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+            <li><a href="#" data-toggle="modal" data-target="#myNovel">创建文词条</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#myCollect">创建扫文单</a></li>
+        </ul>
+      </li>
+      <li><a href="/user/logout">退出</a></li>
+    </ul>
+ </div>
+ <div id="myTabContent" class="tab-content">
+    <!--扫文-->
+    <div class="tab-pane fade in active" id="my-saowen">
+      <% if (user.mycomment.length) { %> 
+      <ul>
+      <% user.mycomment.forEach(function(comment){ %>  
+        <li class="item-<%= comment._id %>">
+            <%= comment.state %><a href='/novel/<%= comment.novelID.id %>' class="title"><%= comment.novelID.name %></a>
+            &nbsp;&nbsp;&nbsp;&nbsp;作者：
+            <a href='/author/<%= comment.novelID.author.id %>' class="author"><%= comment.novelID.author.name %></a>
+            &nbsp;&nbsp;&nbsp;&nbsp;评分：
+            <span><%= comment.score %></span><br><br>
+            <% if (comment.novelID.tags.length) { %> 
+            <% comment.novelID.tags.forEach(function(item){ %>
+              <a class="label"><%=item %></a>
+            <% }) %>
+            <% } %>
+            <div class="comment">
+              <p>
+              <%= comment.text %>
+              <button type="button" class="btn btn-sm btn-danger more-btn pull-right del" data-id="<%= comment._id %>"  >删除</button>
+              </p>
+            </div>
+        </li>
+        <% }) %> 
+      </ul>
+      <% } %>
+    </div>
+    <!--创建-->
+    <div class="tab-pane fade" id="my-create">
+       <h3><b>我创建的小说</b></h3>
+       <% if (user.editnovel.length) { %> 
+       <ul >
+        <% user.editnovel.forEach(function(novel){ %>  
+        <li class="item-<%= novel._id %>">
+            <a href='/novel/<%= novel.id %>' class="title"><%= novel.name %></a>
+            &nbsp;&nbsp;&nbsp;&nbsp;作者：<%= novel.author.name %>
+            &nbsp;&nbsp;&nbsp;&nbsp;平均分：
+            <% if (novel.comments.length) { %> 
+            <% var avg=0 %>
+            <% novel.comments.forEach(function(comment){ %> 
+             <% avg+=comment.score %>
+            <% }) %> 
+            <% avg =avg/ novel.comments.length %>
+            <%=avg.toFixed(2) %>
+            <% for(var i=0;i<Math.floor(avg/2);i++){ %>
+              <i class="score iconfont icon-star"></i>
+            <% } %>
+            <% for(var i=0;i<Math.floor(avg)%2;i++){ %>
+              <i class="score iconfont icon-wujiaoxing"></i>
+            <% } %>
+            <% }else{%>
+              未评分
+            <% } %>  
+            <br>
+            <b><%=novel.type %></b>/
+            <b><%=novel.progress %></b>/
+            <b><%=novel.len %></b>/
+            <b><%=novel.year %></b>/
+            <b><%=novel.taste %></b>/
+            <b><%=novel.actor %></b>/
+            <b><%=novel.web %></b>
+            <br>    
+        </li>
+        <% }) %> 
+      </ul>
+      <% } %>
+      <h3><b>我创建的扫文单</b></h3>
+      <% if (user.editcollect.length) { %> 
+      <ul >
+        <% user.editcollect.forEach(function(collect){ %>  
+        <li class="item-<%= collect._id %>">
+          <a href='/collect/<%= collect.id %>' class="title"><%=collect.name %></a>
+          &nbsp;&nbsp;&nbsp;&nbsp;<i class="badge"><%=collect.novels.length %>篇</i>
+          &nbsp;&nbsp;&nbsp;&nbsp;共<i><%=collect.loved.length %></i>人收藏
+          <button type="button" class="btn btn-sm btn-danger more-btn pull-right del" data-id="<%= collect._id %>">删除</button>     
+        </li>
+       <% }) %> 
+      </ul>
+      <% } %>
+    </div>
+
+    <!--收藏-->
+    <div class="tab-pane fade" id="my-love">  
+       <h3><b>我收藏的扫文单</b></h3>
+       <% if (user.mycollect.length) { %>
+       <ul>
+        <% user.mycollect.forEach(function(collect){ %>  
+        <li class="item-<%= collect._id %>">
+          <a href='/collect/<%= collect.id %>' class="title"><%=collect.name %></a>
+          &nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;<i><%=collect.editor.name %></i>
+          &nbsp;&nbsp;&nbsp;&nbsp;<i class="badge"><%=collect.novels.length %>篇</i>
+          &nbsp;&nbsp;&nbsp;&nbsp;共<i><%=collect.loved.length %></i>人收藏
+          <button type="button" class="btn btn-sm btn-danger more-btn pull-right cancel">取消收藏</button>
+        </li>
+        <% }) %> 
+       </ul>
+       <% } %>
+       <h3><b>我收藏的作者</b></h3>
+       <% if (user.myauthor.length) { %>
+       <ul>
+        <% user.myauthor.forEach(function(author){ %>  
+        <li class="item-<%= author._id %>">
+            <a href='/author/<%= author.id %>' class="author"><%=author.name %></a>
+            &nbsp;&nbsp;代表作：
+            <% if(author.novels.length!==0){ %>
+            <a href='/novel/<%= author.novels[0].id %>' class="title"><%= author.novels[0].name %></a>
+            <% } %>
+            &nbsp;&nbsp;共<i>10</i>人收藏
+            <button type="button" class="btn btn-sm btn-danger more-btn pull-right cancel">取消收藏</button>
+        </li>
+        <% }) %>
+       </ul>
+       <% } %>
+    </div>
+
+ </div>
+ </section>
+ <% include includes/add-novelbox %>
+ <% include includes/add-collectbox %>
+ <% include includes/edit-userbox %>

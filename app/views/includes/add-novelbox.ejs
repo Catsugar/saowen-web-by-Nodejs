@@ -1,0 +1,53 @@
+<!--对话框--> 
+<div class="modal fade" id="myNovel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 class="modal-title"><b>创建文词条</b></h3>
+	   </div>
+	   <div class="modal-body">
+      <form method="post" action="/new/novel">
+         <table>
+         <% if(_user!==undefined){ %>
+         <input type="text" name='newnovel[editor]' style="display: none" value="<%= _user._id %>" >
+         <% } %>
+          <tr>
+            <td>标题：</td><td><input type="text" name='newnovel[name]'></td>
+            <td>作者：</td><td><input type="text" name='newnovel[author]'></td>
+          </tr>
+          <tr>
+            <td>类型：</td><td><select name='newnovel[type]'>
+              <option value="原创" selected>原创</option>
+              <option value="同人" >同人</option></select>
+            </td>
+            <td>进度：</td><td><select name='newnovel[progress]'>
+              <option value="已完成" selected>已完成</option>
+              <option value="连载中" >连载中</option></select>
+            </td>
+          </tr>
+          <tr>
+            <td>篇幅：</td><td><select name='newnovel[len]'>
+              <option value="中长篇" selected>中长篇</option>
+              <option value="短篇" >短篇</option></select></td></td>
+            <td>时间：</td><td><input type="text" name='newnovel[year]'></td>
+          </tr>
+          <tr>
+            <td>口味：</td><td><select name='newnovel[taste]'>
+              <option value="清水" selected>清水</option>
+              <option value="普通" >普通</option></select></td>
+            <td>人物：</td><td><input type="text" name='newnovel[actor]'></td>
+          </tr>
+          <tr>
+            <td>首发：</td><td><input type="text" name='newnovel[web]'></td><td></td><td></td>
+          </tr>
+         </table>
+         <div class="modal-btn">
+           <button type="submit" class="btn btn-default" >确定</button>
+		       <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+         </div>
+        </form>
+	   </div>
+     </div>
+  </div>
+</div>

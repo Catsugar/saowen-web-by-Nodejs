@@ -1,0 +1,49 @@
+
+<section class="main comWidth">
+<!--左边-->
+  <div class="main-left">
+    <!--数据box-->
+    <% if (comments.length) { %> 
+    <ul class="content-box">
+    <% comments.forEach(function(comment){ %>  
+    <!--item-->
+      <li>
+        <div class="content-left"> 
+          <a href=""> <img src="/<%= comment.userID.photo %>" class="img-circle" width="60px"></a> 
+          <a href=""><%= comment.userID.name %></a>
+        </div>
+        <div class="content-right"> 
+        <%= comment.state %><a href='/novel/<%= comment.novelID.id %>' class="title"><%=comment.novelID.name %></a>&nbsp;&nbsp;&nbsp;&nbsp;作者：<a href='/author/<%=comment.novelID.author.id %>' class="author"><%=comment.novelID.author.name %></a>&nbsp;&nbsp;&nbsp;&nbsp;评分：
+        <% for(var i=0;i<Math.floor(comment.score/2);i++){ %>
+          <i class="score iconfont icon-star"></i>
+        <% } %>
+        <% for(var i=0;i<Math.floor(comment.score)%2;i++){ %>
+          <i class="score iconfont icon-wujiaoxing"></i>
+        <% } %>
+        <span class="pull-right" style="font-size:13px;"><%=moment(comment.meta.updateAt).format(' hh:mm:ss    MM/DD/YYYY') %></span>
+        <hr>
+        <% if (comment.novelID.tags.length) { %> 
+        <% comment.novelID.tags.forEach(function(item){ %>
+          <a class="label"><%=item %></a>
+        <% }) %>
+        <% } %>
+        <div class="comment">
+          <p><%= comment.text %></p>
+        </div>   
+        </div>
+      </li>
+      <% }) %>
+    </ul>
+    <% } %> 
+    <ul class="pagination">
+      <li><a href="#">&laquo;</a></li>
+      <li class="curpage"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">&raquo;</a></li>
+    </ul>
+  </div>
+  <% include includes/right %>
+</section>

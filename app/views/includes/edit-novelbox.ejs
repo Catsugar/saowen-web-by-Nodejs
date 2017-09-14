@@ -1,0 +1,44 @@
+<!--对话框--> 
+<div class="modal fade" id="myNovel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 class="modal-title"><b>编辑文词条</b></h3>
+	   </div>
+	   <div class="modal-body">
+        <form method="post" action="/edit/novel">
+         <input type="text" style="display: none" name='newnovel[id]' value="<%= novel.id %>" >
+         <% if(_user!==undefined){ %>
+         <input type="text" name='newnovel[editor]' style="display: none" value="<%= _user._id %>" >
+         <% } %>
+         <table>
+          <tr>
+            <td>标题：</td><td><input type="text" name='newnovel[name]' value="<%=novel.name %>" disabled></td>
+            <td>作者：</td><td><input type="text" name='newnovel[author]' value="<%=novel.author.name %>" disabled></td>
+          </tr>
+          <tr>
+            <td>类型：</td><td><select name='newnovel[type]' value="<%=novel.type %>"><option value="原创">原创</option><option value="同人" >同人</option></select></td>
+            <td>进度：</td><td><select name='newnovel[progress]' value="<%=novel.progress %>"><option value="已完成">已完成</option><option value="连载中" >连载中</option></select></td>
+          </tr>
+          <tr>
+            <td>篇幅：</td><td><select name='newnovel[len]' value="<%=novel.len %>"><option value="中长篇" >中长篇</option><option value="短篇" >短篇</option></select></td></td>
+            <td>时间：</td><td><input type="text" value="<%=novel.year %>"></td>
+          </tr>
+          <tr>
+            <td>口味：</td><td><select name='newnovel[taste]' value="<%=novel.taste %>"><option value="清水" >清水</option><option value="普通" >普通</option></select></td>
+            <td>人物：</td><td><input type="text" name='newnovel[actor]' value="<%=novel.actor %>"></td>
+          </tr>
+          <tr>
+            <td>首发：</td><td><input type="text" name='newnovel[web]' value="<%=novel.web %>"></td><td></td><td></td>
+          </tr>
+         </table>
+         <div class="modal-btn">
+           <button type="submit" class="btn btn-default" >确定</button>
+		       <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+         </div>
+         </form>
+	   </div>
+     </div>
+  </div>
+</div>

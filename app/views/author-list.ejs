@@ -1,0 +1,34 @@
+
+<section class="main comWidth">
+<!--左边-->
+  <div class="main-left">
+      <h3><b>作者列表</b></h3>
+      <% if (authors.length) { %>  
+      <ul class="authorlist-box">
+        <% authors.forEach(function(author){ %>  
+        <li>
+           <a href='/author/<%= author.id %>' class="title"><%= author.name %></a>&nbsp;&nbsp;&nbsp;&nbsp;共<i><%= author.loved.length %></i>人收藏</i><hr>
+           作品列表：&nbsp;&nbsp;
+           <% if (author.novels.length) { %>
+           <% author.novels.forEach(function(novel){ %> 
+           /<a href='/novel/<%= novel.id %>' class="title"><%= novel.name %></a> 
+           <% }) %> 
+           <% } %>  
+        </li>
+        <% }) %> 
+      </ul>
+      <% } %> 
+      
+      <!--页码-->
+      <ul class="pagination">
+            <li><a href="#">&laquo;</a></li>
+            <li class="curpage"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+      </ul>
+  </div>
+  <% include includes/right %>
+</section>

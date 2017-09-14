@@ -1,0 +1,26 @@
+
+<!--创作者对话框--> 
+<div class="modal fade" id="myAuthor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 class="modal-title"><b>编辑作者</b></h3>
+	  </div>
+	  <div class="modal-body">
+	     <form method="post" action="/edit/author">
+	     <input type="text" style="display: none" name='newauthor[id]' value="<%= author.id %>" >
+	     <% if(_user!==undefined){ %>
+	     <input type="text" name='newauthor[editor]' style="display: none" value="<%= _user._id %>" >
+	     <% } %>
+		 <input type="text" name='newauthor[name]'  value="<%= author.name %>" >
+         <input type="text" name='newauthor[description]' value="<%= author.description %>" >
+		 <div class="modal-btn">
+		   <button type="submit" class="btn btn-default" >确定</button>
+		   <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+         </div>
+         </form>
+	   </div>
+     </div>
+  </div>
+</div>

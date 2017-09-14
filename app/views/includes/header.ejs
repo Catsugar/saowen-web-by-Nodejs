@@ -1,0 +1,37 @@
+
+<!--返回按钮-->
+<div id="backbtn" style="display:none">Top</div>
+<!--导航-->
+<header id="header" >
+  <div class="navbox comWidth">
+    <div class="nav-left"> <a class="navbar-brand" href="#"  >看什喵？！</a> </div>
+    <ul class="nav-middle">
+      <li><a href="/">首页</a></li>
+      <li><a href="/collect-list">书单</a></li>
+      <li><a href="/author-list">作者</a></li>
+      <li><a href="">手机端</a></li>
+    </ul>
+    <div class="nav-right">
+      <input type="text" name='keyword' placeholder="搜索作者、作品或者标签"  >
+      <i class="iconfont icon-sousuo" method="post" action="/search?key=keyword"></i>
+      <ul>
+      <% if (_user==undefined) { %> 
+        <li class="btnbox">
+          <a href="" type="button" class="btn btn-sm btn-danger login" data-toggle="modal" data-target="#myLogin">登录</a> 
+          <a href="" type="button" class="btn btn-sm btn-info register" data-toggle="modal" data-target="#myRegister">注册</a> 
+        </li>
+      <% }else{ %>
+        <li class="user-head dropdown"> 
+          <a href="" ><img src="/<%=_user.photo %>" class="img-circle" width="35px"></a> 
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%=_user.name %>&nbsp;<b class="caret"></b></a>
+          <div role="menu" class="dropdown-menu user-list">
+            <div><a href="/back/<%=_user.id %>">我的后院</a></div>
+            <div><a href="#" >消息中心</a></div>
+            <div><a href="/user/logout" >退出</a></div>
+          </div>
+        </li>
+      <% } %>  
+      </ul>
+    </div>
+  </div>
+</header>
