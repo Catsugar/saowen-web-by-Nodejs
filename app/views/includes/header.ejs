@@ -12,8 +12,8 @@
       <li><a href="">手机端</a></li>
     </ul>
     <div class="nav-right">
-      <input type="text" name='keyword' placeholder="搜索作者、作品或者标签"  >
-      <i class="iconfont icon-sousuo" method="post" action="/search?key=keyword"></i>
+      <input type="text" name='key' placeholder="搜索作者、作品或者标签"  >
+      <i class="iconfont icon-sousuo" ></i>
       <ul>
       <% if (_user==undefined) { %> 
         <li class="btnbox">
@@ -26,7 +26,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%=_user.name %>&nbsp;<b class="caret"></b></a>
           <div role="menu" class="dropdown-menu user-list">
             <div><a href="/back/<%=_user.id %>">我的后院</a></div>
-            <div><a href="#" >消息中心</a></div>
+            <div><a href="#" data-toggle="modal" data-target="#myLazy">消息中心</a></div>
             <div><a href="/user/logout" >退出</a></div>
           </div>
         </li>

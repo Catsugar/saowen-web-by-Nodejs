@@ -38,19 +38,21 @@ userSchema.pre('save', function (next) {
     }
     //生成随机的盐
     bcrypt.genSalt( SALT_WORK_FACTOR,function (err,salt) {
-      if(err) return(err);
+      if (err) return next(err);
       bcrypt.hash(user.password,salt,function(err, hash){
-        if(err) return(err);
+        if (err) return next(err);
         user.password=hash;
-        next();
+        next()
       })
     })
 });
 //模式的实例方法
 userSchema.methods={
-    comparePassword: function (_password, cb) {
-       bcrypt.compare(_password, this.password, function(err,isMatch){
+    comparePassword: function (_password,user,cb) {
+       bcrypt.compare(_password, user.password, function(err,isMatch){
         if(err) {return cb(err)};
+        console.log(_password);
+        console.log(user.password);
         cb(null,isMatch); 
        })
     }

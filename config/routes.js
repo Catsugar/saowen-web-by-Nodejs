@@ -21,7 +21,8 @@ module.exports=function (app) {
   app.route('/collect/:id').get(Render.collect);
   app.route('/novel/:id').get(Render.novel);
   app.route('/back/:id').get(Render.back);
-  app.route('/search/:key').get(Search.search);
+  app.route('/search').post(Search.search)
+  app.route('/result').get(Search.result);//搜索功能
   app.route('/new/novel').post(Add.Addnovel);
   app.route('/new/collect').post(Add.Addcollect);
   app.route('/new/comment').post(Add.Addcomment);
@@ -31,8 +32,8 @@ module.exports=function (app) {
   app.route('/edit/collect').post(Edit.Editcollect);
   app.route('/edit/user').post(Edit.Edituser);
   app.route('/back/admin').delete(Del.Delete);
-  app.route('/back/love').post(Love.Cancel);//收藏
-  app.route('/back/love').post(Love.Cancel);//取消收藏
+  app.route('/back/love').post(Love.Love);//收藏
+  app.route('/back/cancel').post(Love.Cancel);//取消收藏
   app.route('/user/signin').post(Admin.Signin);//登录
   app.route('/user/logout').get(Admin.Logout);//登出
 }

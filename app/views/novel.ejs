@@ -6,19 +6,27 @@
     <div class="novel-box">
       <h1><b><%=novel.name %></b></h1>&nbsp;&nbsp;&nbsp;&nbsp;作者：
       <a href='/author/<%=novel.author.id %>' class="author"><%=novel.author.name %></a>
-      <a href="javascript:void(0);" class="edit" data-toggle="modal" data-target="#myNovel">
-        <i class="iconfont icon-comment-pen"></i>
-      </a>
+      <%if(_user!==undefined){%>
+      <a href="javascript:void(0);" class="edit" data-toggle="modal" data-target="#myNovel"><i class="iconfont icon-comment-pen"></i></a>
+      <% }else{ %> 
+      <a href="javascript:void(0);" class="edit" data-toggle="modal" data-target="#mySignin"><i class="iconfont icon-comment-pen"></i></a>
+      <% } %>
       <i><%= novel.editor.name %></i>
       <span class="dropdown pull-right">
            <button type="button" class="btn dropdown-toggle btn-warning btn-sm" id="dropdownMenu1" data-toggle="dropdown">加入扫文单</button>
            <ul class="dropdown-menu pull-left" role="menu" aria-labelledby="dropdownMenu1">
-             <% if (novel.collects.length) { %> 
-             <% novel.collects.forEach(function(collect){ %>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= collect.name %></a></li>
-             <% }) %> 
+             <% if (_user==undefined) { %> 
+                <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#mySignin">新建扫文单</a></li>
+             <% }else{ %>
+                <% _user.editcollect.forEach(function(collect){ %>
+                  <li type="button" role="presentation" class="lovebtn" data-tid="<%= novel._id %>" data-uid="<%= collect._id %>" data-toggle="modal" data-target="#myLoved"> 
+                    <a  role="menuitem" tabindex="-1" ><%= collect.name %></a>
+                  </li>
+                <% }) %> 
+                <li role="presentation">
+                 <a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#myCollect">新建扫文单</a>
+                </li>
              <% } %>
-             <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#myCollect">新建扫文单</a></li>
            </ul>
        </span>
       <br>
@@ -84,8 +92,12 @@
             </select><br>
       添加标签：<input type="text" name='newcomment[tag]'>
     </div>
-   <textarea name='newcomment[text]' ></textarea>
-    <button type="submit" class="btn btn-danger pull-right btn-sm commentbtn">评论</button>
+    <textarea name='newcomment[text]' ></textarea>
+    <%if(_user!==undefined){%>
+      <button type="submit" class="btn btn-danger pull-right btn-sm commentbtn">评论</button>
+    <% }else{ %> 
+      <a href="#" type="button" class="btn btn-danger pull-right btn-sm" data-toggle="modal" data-target="#mySignin" >评论</a>
+    <% } %>
     </form>
     <% if (novel.comments.length) { %> 
     <ul class="commentbox">
@@ -101,16 +113,22 @@
           <% } %>
           &nbsp;&nbsp;&nbsp;状态：
           <b><%=comment.state %></b>
-          <a style="color:#999" class="reply pull-right">回复</a>
-          <p style="text-indent:28px">
-            <%=comment.text %>
-          </p>
+          <a style="color:#999" class="reply pull-right"  href='#' ><%=moment(comment.meta.updateAt).format(' hh:mm:ss    MM/DD/YYYY') %></a>
+          <p style="text-indent:28px"><%=comment.text %></p>
+          <!--隐藏空间,暂时不做互相评论功能
+          <ul class='replybox'>
+            <li style="border:none">
+              <img src="/<%=comment.userID.photo %>"><a href=""><%=comment.userID.name %></a>
+              <textarea></textarea>
+              <button type="submit" class="btn btn-danger pull-right btn-sm commentbtn">回复</button>
+            </li>
+          </ul>-->
         </li>
       <% }) %> 
     </ul>
     <% } %>
     <ul class="pagination">
-      <li><a href="#">&laquo;</a></li>
+      <li><a href="#comments">&laquo;</a></li>
       <li class="curpage"><a href="#">1</a></li>
       <li><a href="#">2</a></li>
       <li><a href="#">3</a></li>

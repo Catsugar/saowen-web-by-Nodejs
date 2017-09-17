@@ -29,7 +29,7 @@ var _underscore=require('underscore');
     var ID=authorObj.id;
     authors.findOne({id:ID}).exec(function (err, author) {
       if (err) {console.log(err);}
-      users.findOne({_id:novelObj.editor}).exec(function (err, user) {
+      users.findOne({_id:authorObj.editor}).exec(function (err, user) {
         if (err) {console.log(err);}
         if(user!==null){
           var _author = _underscore.extend(author, authorObj); 
@@ -47,7 +47,7 @@ var _underscore=require('underscore');
     var ID=collectObj.id;
     collections.findOne({id:ID}).exec(function (err, collect) {
       if (err) {console.log(err);}
-      users.findOne({_id:novelObj.editor}).exec(function (err, user) {
+      users.findOne({_id:collectObj.editor}).exec(function (err, user) {
         if (err) {console.log(err);}
         if(user!==null){
           var _collect = _underscore.extend(collect, collectObj); 

@@ -38,7 +38,7 @@ var _underscore=require('underscore');
         return res.redirect('/');
       } else if(user!==null ){
         console.log("存在该用户");
-        user.comparePassword(logpassword,function (err,isMatch) {
+        user.comparePassword(logpassword,user,function (err,isMatch) {
           if (err) {console.log(err);}
           if(isMatch){
             console.log("密码正确，可以登录");

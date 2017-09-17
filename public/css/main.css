@@ -288,9 +288,12 @@ hr{padding:0;margin:10px 0;}
 	display: inline-block;
 	text-align: center;}
 .love-box input,button,select{vertical-align:baseline}
-.love-box li{
-	margin-bottom: 30px;
-}
+.love-box li{margin-bottom: 30px;}
+.replybox li{
+	padding-left:30px;
+	padding-bottom: 20px;}
+
+
 /********实现切换效果**********/
 .state{
 	display:none;}
@@ -351,14 +354,6 @@ textarea{
 	top:50%;
 	left:50%;
 	margin:-100px 0 0 -200px;}
-#myLoved .modal-dialog{
-	width: 160px;
-	position:fixed;
-	top:50%;
-	left:50%;}
-#myLoved h3{
-	height: 80px;
-    line-height: 80px;}
 #myNovel .modal-dialog{
 	width:600px;
 	position:fixed;

@@ -6,8 +6,16 @@
     <div class="novel-box">
       <h1><b><%= collection.name %></b></h1>&nbsp;&nbsp;&nbsp;&nbsp;共<i><%= collection.loved.length %></i>人收藏
       &nbsp;&nbsp;by&nbsp;<i><%= collection.editor.name %></i>
+      <%if(_user!==undefined && collection.editor._id ==_user._id){%>
       <a href="javascript:void(0);" class="edit" data-toggle="modal" data-target="#myCollect"><i class="iconfont icon-comment-pen"></i></a>
-      <button type="button" class="btn pull-right btn-warning btn-sm" data-toggle="modal" data-target="#myLoved">收藏</button>
+      <% }else{ %>
+      <a href="javascript:void(0);" class="edit" data-toggle="modal" data-target="#mySignin"><i class="iconfont icon-comment-pen"></i></a>
+      <% } %>
+      <%if(_user!==undefined){%>
+        <button type="button" class="btn pull-right btn-warning btn-sm lovebtn" data-tid="<%=collection._id %>" data-uid="<%=_user._id %>" data-toggle="modal" data-target="#myLoved">收藏</button>
+      <% }else{ %>
+        <button type="button" class="btn pull-right btn-warning btn-sm"  data-toggle="modal" data-target="#mySignin">收藏</button>
+      <% } %>
       <h3><b>简介</b></h3>
       <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= collection.description %></p>
     </div>
@@ -35,8 +43,10 @@
             <% } %>
             <% }else{%>
               未评分
-            <% } %>  
-            <button type="button" class="btn btn-sm btn-danger more-btn pull-right">删除</button>
+            <% } %> 
+            <%if(_user!==undefined && collection.editor._id ==_user._id){%>
+              <button type="button" class="btn btn-sm btn-danger more-btn pull-right" data-tid="<%= collect._id %>" data-uid="<%=_user._id %>">删除</button>
+            <% } %>
            <br>
            <b><%=novel.type %></b>/<b><%=novel.progress %></b>/<b><%=novel.len %></b>/<b><%=novel.year %></b>/<b><%=novel.taste %></b>/<b><%=novel.actor %></b><br>
            <hr>
@@ -45,7 +55,6 @@
               <a class="label"><%=tag %></a> 
            <% }) %> 
            <% } %>
-
         </li>
         <% }) %> 
       </ul>

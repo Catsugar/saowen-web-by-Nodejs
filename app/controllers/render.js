@@ -49,7 +49,6 @@ var _underscore=require('underscore');
               authorRanks:authorRanks,
               collectionRanks:collectionRanks,
               _user:_user
-
             })
           })
         })
@@ -134,7 +133,8 @@ var _underscore=require('underscore');
   }
     //小说详情
   exports.novel=function(req,res){
-    var _user = req.session.user;
+    var User = req.session.user;
+    var userID=(User!==undefined) ? User._id:undefined;
     novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
       if(err){console.log(err);}
       authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
@@ -145,13 +145,18 @@ var _underscore=require('underscore');
           novels.findOne({id: ID}).populate('author').populate('collects').populate({ path:'comments', populate:{path:'userID'}})
           .exec(function(err,novel) {
             if(err){console.log(err);};
-            res.render('novel',{
-              title:'小说:'+novel.name,
-              novel: novel,
-              novelRanks:novelRanks,
-              authorRanks:authorRanks,
-              collectionRanks:collectionRanks,
-              _user:_user
+            users.findOne({_id:userID}).populate('editcollect').sort({'meta.updateAt': -1}).exec(function(err, _user) {  
+              if(err){console.log(err);}
+              if(_user==null){_user=undefined;}
+              console.log(_user);
+              res.render('novel',{
+                title:'小说:'+novel.name,
+                novel: novel,
+                novelRanks:novelRanks,
+                authorRanks:authorRanks,
+                collectionRanks:collectionRanks,
+                _user:_user
+              })
             })
           })
         })

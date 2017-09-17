@@ -163,7 +163,7 @@ var _underscore=require('underscore');
     var  _collect= new collections({
         id: 'c'+("000000" + (len+1)).slice(-6),
         name: collectObj.name,
-        description: '',
+        description: collectObj.description,
         editor:collectObj.editor,
         meta: {'createAt': Date.now(),
                'updateAt': Date.now()},

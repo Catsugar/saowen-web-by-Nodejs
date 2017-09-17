@@ -6,7 +6,11 @@
   <h3><b><%=user.name %></b></h3>
   <div class="des_box">
     <span class="des_show"><%=user.description %></span>
-    <i class="iconfont icon-comment-pen changebtn" data-toggle="modal" data-target="#myUser"></i>
+    <%if(_user!==undefined && user._id==_user._id){%>
+       <i class="iconfont icon-comment-pen changebtn" data-toggle="modal" data-target="#myUser"></i>
+    <% }else{ %>
+       <i class="iconfont icon-comment-pen changebtn" data-toggle="modal" data-target="#mySignin"></i>
+    <% } %>
   </div>
   <div>
     <ul id="myTab" class="nav nav-tabs">
@@ -16,8 +20,14 @@
       <li class="dropdown">
         <a href="#" id="create" class="dropdown-toggle" data-toggle="dropdown">创建&nbsp;<b class="caret"></b></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+          <%if(_user!==undefined && user._id==_user._id){%>
             <li><a href="#" data-toggle="modal" data-target="#myNovel">创建文词条</a></li>
             <li><a href="#" data-toggle="modal" data-target="#myCollect">创建扫文单</a></li>
+          <% }else{ %>
+            <li><a href="#" data-toggle="modal" data-target="#mySignin">创建文词条</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#mySignin">创建扫文单</a></li>
+          <% } %>
+            
         </ul>
       </li>
       <li><a href="/user/logout">退出</a></li>
@@ -43,7 +53,9 @@
             <div class="comment">
               <p>
               <%= comment.text %>
+              <%if(_user!==undefined && user._id==_user._id){%>
               <button type="button" class="btn btn-sm btn-danger more-btn pull-right del" data-id="<%= comment._id %>"  >删除</button>
+              <% }%>
               </p>
             </div>
         </li>
@@ -98,7 +110,9 @@
           <a href='/collect/<%= collect.id %>' class="title"><%=collect.name %></a>
           &nbsp;&nbsp;&nbsp;&nbsp;<i class="badge"><%=collect.novels.length %>篇</i>
           &nbsp;&nbsp;&nbsp;&nbsp;共<i><%=collect.loved.length %></i>人收藏
-          <button type="button" class="btn btn-sm btn-danger more-btn pull-right del" data-id="<%= collect._id %>">删除</button>     
+          <%if(_user!==undefined && user._id==_user._id){%>
+            <button type="button" class="btn btn-sm btn-danger more-btn pull-right del" data-id="<%= collect._id %>">删除</button>
+          <% } %>     
         </li>
        <% }) %> 
       </ul>
@@ -116,7 +130,10 @@
           &nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;<i><%=collect.editor.name %></i>
           &nbsp;&nbsp;&nbsp;&nbsp;<i class="badge"><%=collect.novels.length %>篇</i>
           &nbsp;&nbsp;&nbsp;&nbsp;共<i><%=collect.loved.length %></i>人收藏
-          <button type="button" class="btn btn-sm btn-danger more-btn pull-right cancel">取消收藏</button>
+          <%if(_user!==undefined && user._id==_user._id){%>
+            <button type="button" class="btn btn-sm btn-danger more-btn pull-right cancel" data-tid="<%= collect._id %>" data-uid="<%=_user._id %>">
+            取消收藏</button>
+          <% } %>
         </li>
         <% }) %> 
        </ul>
@@ -132,7 +149,10 @@
             <a href='/novel/<%= author.novels[0].id %>' class="title"><%= author.novels[0].name %></a>
             <% } %>
             &nbsp;&nbsp;共<i>10</i>人收藏
-            <button type="button" class="btn btn-sm btn-danger more-btn pull-right cancel">取消收藏</button>
+            <%if(_user!==undefined && user._id==_user._id){%>
+              <button type="button" class="btn btn-sm btn-danger more-btn pull-right cancel" data-tid="<%= author._id %>" data-uid="<%=_user._id %>">
+              取消收藏</button>
+            <% } %>
         </li>
         <% }) %>
        </ul>
