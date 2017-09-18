@@ -24,7 +24,7 @@
         <hr>
         <% if (comment.novelID.tags.length) { %> 
         <% comment.novelID.tags.forEach(function(item){ %>
-          <a class="label"><%=item %></a>
+          <a href="/result?key=<%=item %>&p=0" class="label"><%=item %></a>
         <% }) %>
         <% } %>
         <div class="comment">

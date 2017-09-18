@@ -52,7 +52,7 @@
            <hr>
            <% if (novel.tags.length) { %> 
            <% novel.tags.forEach(function(tag){ %>  
-              <a class="label"><%=tag %></a> 
+              <a href="/result?key=<%=tag %>&p=0" class="label"><%=tag %></a> 
            <% }) %> 
            <% } %>
         </li>

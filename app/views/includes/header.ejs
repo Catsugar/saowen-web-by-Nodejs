@@ -4,16 +4,17 @@
 <!--导航-->
 <header id="header" >
   <div class="navbox comWidth">
-    <div class="nav-left"> <a class="navbar-brand" href="#"  >看什喵？！</a> </div>
+    <div class="nav-left"> <a class="navbar-brand" href="/"  >看什喵？！</a> </div>
     <ul class="nav-middle">
       <li><a href="/">首页</a></li>
       <li><a href="/collect-list">书单</a></li>
       <li><a href="/author-list">作者</a></li>
       <li><a href="">手机端</a></li>
     </ul>
+    <form action='/search' method="post">
     <div class="nav-right">
-      <input type="text" name='key' placeholder="搜索作者、作品或者标签"  >
-      <i class="iconfont icon-sousuo" ></i>
+      <input type="text" name='key' placeholder="搜索作者、作品或者标签" maxlength="30">
+      <button type="submit" class="iconfont icon-sousuo"></button>
       <ul>
       <% if (_user==undefined) { %> 
         <li class="btnbox">
@@ -33,5 +34,6 @@
       <% } %>  
       </ul>
     </div>
+   </form>
   </div>
 </header>

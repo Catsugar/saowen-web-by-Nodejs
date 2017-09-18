@@ -92,11 +92,15 @@ hr{padding:0;margin:10px 0;}
 	padding:0 25px;
 	font-size:14px;
 	border:none;}
-.nav-right i{
-	margin-left:-45px;
+.nav-right button{
+	background-color: #fff;
+	margin-left:-50px;
+	border: none;
 	color:#CCC;
 	font-size:18px;
-	margin-top:5px;}
+	margin-top:5px;
+	width: 25px;
+}
 .nav-right ul{
 	margin-left:20px;
 	width:200px;}
