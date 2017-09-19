@@ -186,13 +186,14 @@ hr{padding:0;margin:10px 0;}
 	text-overflow:ellipsis;
 	overflow:hidden;}
 /***页码***/
+#curpage{background-color:#666;color:#fff;}
 .pagination{
 	clear:both;
 	display:block;
 	float:right;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
-.pagination li a:hover{background-color:#666;color:#fff;}
-.curpage a{background-color:#666;color:#fff;}
+.pagination li a:hover{background-color:#ccc;color:#666;}
+
 .pagination li a{color:#666;}
 /******************右边布局********************/
 .right-title{

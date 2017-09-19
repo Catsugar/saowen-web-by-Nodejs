@@ -5,22 +5,28 @@ var authors=require('../models/author.js');
 var collections=require('../models/collection.js');
 var comments=require('../models/comment.js');
 var _underscore=require('underscore');
+var count=8;//每页几条数据
  //首页
   exports.index=function(req,res){
     console.log('user in session:');
     console.log(req.session.user);
     var _user = req.session.user;
+    var page= parseInt(req.query.p) || 0;
+    var num=page*count;
     novels.find({}).sort({'comments':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
       if(err){console.log(err);}
       authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
         if(err){console.log(err);}
         collections.find({}).sort({'loved.length':-1}).limit(10).exec(function(err, collectionRanks) {
           if(err){console.log(err);}   
-          comments.find({}).populate('userID').populate({path:'novelID', populate:{path:'author'}}).sort({'meta.updateAt': -1}).exec(function(err, comments) {  
+          comments.find({}).populate('userID').populate({path:'novelID', populate:{path:'author'}}).sort({'meta.updateAt': -1}).exec(function(err, allcomments) {  
             if(err){console.log(err);}
+            var comments=allcomments.slice(num,num+count);
             res.render('index',{
               title:'看什喵？！',
               comments: comments,
+              currentPage:page,
+              totalPage:Math.ceil(allcomments.length/count),
               novelRanks:novelRanks,
               authorRanks:authorRanks,
               collectionRanks:collectionRanks,
@@ -33,6 +39,8 @@ var _underscore=require('underscore');
   }
   //作者列表
   exports.authorlist=function(req,res){
+    var page= parseInt(req.query.p) || 0;
+    var num=page*count;
     var _user = req.session.user;
     novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
       if(err){console.log(err);}
@@ -40,11 +48,14 @@ var _underscore=require('underscore');
         if(err){console.log(err);}
         collections.find({}).sort({'loved.length':-1}).limit(10).exec(function(err, collectionRanks) {
           if(err){console.log(err);} 
-          authors.find({}).populate('novels').sort({'meta.updateAt': -1}).exec(function(err, authors) { 
+          authors.find({}).populate('novels').sort({'meta.updateAt': -1}).exec(function(err, allauthors) { 
             if(err){console.log(err);}
+            var authors=allauthors.slice(num,num+count);
             res.render('author-list',{
               title:'作者列表',
               authors: authors,
+              currentPage:page,
+              totalPage:Math.ceil(allauthors.length/count),
               novelRanks:novelRanks,
               authorRanks:authorRanks,
               collectionRanks:collectionRanks,
@@ -83,6 +94,8 @@ var _underscore=require('underscore');
   }
     //书单列表
   exports.collectlist=function(req,res){
+    var page= parseInt(req.query.p) || 0;
+    var num=page*count;
     var _user = req.session.user;
     novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
       if(err){console.log(err);}
@@ -90,11 +103,14 @@ var _underscore=require('underscore');
         if(err){console.log(err);}
         collections.find({}).sort({'loved.length':-1}).limit(10).exec(function(err, collectionRanks) {
           if(err){console.log(err);}   
-          collections.find({}).populate('editor').sort({'meta.updateAt': -1}).exec(function(err, collections) { 
+          collections.find({}).populate('editor').sort({'meta.updateAt': -1}).exec(function(err, allcollections) { 
             if(err){console.log(err);};
+            var collections=allcollections.slice(num,num+count);
             res.render('collect-list',{
               title:'书单列表',
               collections: collections,
+              currentPage:page,
+              totalPage:Math.ceil( allcollections.length/count),
               novelRanks:novelRanks,
               authorRanks:authorRanks,
               collectionRanks:collectionRanks,
@@ -148,7 +164,6 @@ var _underscore=require('underscore');
             users.findOne({_id:userID}).populate('editcollect').sort({'meta.updateAt': -1}).exec(function(err, _user) {  
               if(err){console.log(err);}
               if(_user==null){_user=undefined;}
-              console.log(_user);
               res.render('novel',{
                 title:'小说:'+novel.name,
                 novel: novel,

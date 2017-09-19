@@ -19,16 +19,42 @@
       </ul>
       <% } %> 
       
-      <!--页码-->
+      <!---页码-->
+      <% if (totalPage>1) { %> 
       <ul class="pagination">
-            <li><a href="#">&laquo;</a></li>
-            <li class="curpage"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
+        <li><a href="/author-list?p=0">首页</a></li>
+        <% if(currentPage==totalPage){  %> 
+          <li><a>&laquo;</a></li>
+        <% }else{ %>
+          <li><a href="/author-list?p=<%=(currentPage-1) %>">&laquo;</a></li>
+        <% } %>  
+        <% if(currentPage>2){  %> 
+          <% var last=((currentPage+3)<totalPage)?(currentPage+3):totalPage %>
+          <% for(var i=currentPage-2;i<last;i++){ %>
+            <% if (i==currentPage) { %> 
+              <li ><a id="curpage" href="/author-list?p=<%=i %>"><%=(i+1) %></a></li>
+            <% }else{ %>
+              <li><a href="/author-list?p=<%=i %>"><%=(i+1) %></a></li>
+            <% } %>
+          <% } %>
+        <% }else{ %>
+          <% var last=(totalPage<5)?totalPage:5 %>
+          <% for(var i=0;i<last;i++){ %>
+            <% if (i==currentPage) { %> 
+              <li ><a id="curpage" href="/author-list?p=<%=i %>"><%=(i+1) %></a></li>
+            <% }else{ %>
+              <li><a href="/author-list?p=<%=i %>"><%=(i+1) %></a></li>
+            <% } %>
+          <% } %>
+        <% } %> 
+        <% if(currentPage+1==totalPage){  %> 
+          <li><a>&raquo;</a></li>
+        <% }else{ %>
+          <li><a href="/author-list?p=<%=currentPage+1 %>">&raquo;</a></li>
+        <% } %> 
+        <li><a href="/author-list?p=<%=(totalPage-1) %>">末页</a></li> 
       </ul>
+      <% } %>
   </div>
   <% include includes/right %>
 </section>
