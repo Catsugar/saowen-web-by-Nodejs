@@ -24,13 +24,13 @@ module.exports=function (app) {
   app.route('/search').post(Search.search)
   app.route('/result').get(Search.result);//搜索功能
   app.route('/new/novel').post(Add.Addnovel);
-  app.route('/new/collect').post(Add.Addcollect);
+  app.route('/new/collect').post(Add.Addcover,Add.Addcollect);
   app.route('/new/comment').post(Add.Addcomment);
   app.route('/new/user').post(Admin.Adduser);//注册
   app.route('/edit/novel').post(Edit.Editnovel);
   app.route('/edit/author').post(Edit.Editauthor);
-  app.route('/edit/collect').post(Edit.Editcollect);
-  app.route('/edit/user').post(Edit.Edituser);
+  app.route('/edit/collect').post(Add.Addcover,Edit.Editcollect);
+  app.route('/edit/user').post(Add.Addphoto,Edit.Edituser);
   app.route('/back/admin').delete(Del.Delete);
   app.route('/back/love').post(Love.Love);//收藏
   app.route('/back/cancel').post(Love.Cancel);//取消收藏

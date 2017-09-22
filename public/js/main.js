@@ -45,6 +45,13 @@ $(document).ready(function(){
 	$("#lovedbtn").mousedown(function(event){
             event.stopPropagation();
     });
+    //上传样式
+    $('input[id=lefile]').change(function() {
+      $('#photoCover').val($(this).val());
+    });
+    $('input[id=upfile]').change(function() {
+      $('#phototext').val($(this).val());
+    });
 });
 
 

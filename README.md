@@ -58,6 +58,7 @@ npm install connect-mongo --save
 * 收藏功能。
 * 搜索功能和tag功能。
 * 分页。
+*上传封面和海报
 
 
 

@@ -45,6 +45,9 @@ var _underscore=require('underscore');
   exports.Editcollect=function (req, res) {
     var collectObj = req.body.newcollect;
     var ID=collectObj.id;
+    if(req.poster){
+      collectObj.cover="cover/"+req.poster;
+    }
     collections.findOne({id:ID}).exec(function (err, collect) {
       if (err) {console.log(err);}
       users.findOne({_id:collectObj.editor}).exec(function (err, user) {
@@ -63,15 +66,34 @@ var _underscore=require('underscore');
   exports.Edituser=function (req, res) {
     var userObj = req.body.newuser;
     var ID=userObj.id;
-    var DES=userObj.description;
-    users.findOne({id:ID}).exec(function (err, user) {
-      if (err) {console.log(err);}
-      var edituser=user;
-      edituser.description=DES;
-      var _user = _underscore.extend(user, edituser); 
-      _user.save(function (err, user) {
+    //编辑介绍
+    if(userObj.description){
+      var DES=userObj.description;
+      users.findOne({id:ID}).exec(function (err, user) {
         if (err) {console.log(err);}
-        res.redirect('/back/' + user.id);
+        var edituser=user;
+        edituser.description=DES;
+        var _user = _underscore.extend(user, edituser); 
+        _user.save(function (err, user) {
+          if (err) {console.log(err);}
+          res.redirect('/back/' + user.id);
+        })
       })
-    })
+    }else if(userObj.photo){
+      var Photo=userObj.photo;
+      if(req.photo){
+        Photo="photo/"+req.photo;
+      }
+      req.session.user.photo=Photo;
+      users.findOne({id:ID}).exec(function (err, user) {
+        if (err) {console.log(err);}
+        var edituser=user;
+        edituser.photo=Photo;
+        var _user = _underscore.extend(user, edituser); 
+        _user.save(function (err, user) {
+          if (err) {console.log(err);}
+          res.redirect('/back/' + user.id);
+        })
+      })
+    }
   }

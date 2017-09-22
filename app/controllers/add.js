@@ -5,6 +5,49 @@ var authors=require('../models/author.js');
 var collections=require('../models/collection.js');
 var comments=require('../models/comment.js');
 var _underscore=require('underscore');
+var fs=require('fs');
+var path=require('path');
+  //存储海报
+  exports.Addcover=function(req,res,next){
+    var posterData=req.files.upposter;
+    var filePath=posterData.path;
+    var originalFilename=posterData.originalFilename;
+    if(originalFilename){
+      fs.readFile(filePath,function (err,data) {
+        var timestamp=Date.now();
+        var type=posterData.type.split('/')[1];
+        var poster=timestamp+'.'+type;
+        var newPath=path.join(__dirname, '../../', '/public/cover/' + poster);
+        fs.writeFile(newPath, data, function(err) {
+          req.poster=poster;
+          next();
+        })
+      })
+    }else{
+      next();
+    }
+  }
+  //增加头像
+    exports.Addphoto=function(req,res,next){
+    var photoData=req.files.upphoto;
+    console.log(photoData);
+    var filePath=photoData.path;
+    var originalFilename=photoData.originalFilename;
+    if(originalFilename){
+      fs.readFile(filePath,function (err,data) {
+        var timestamp=Date.now();
+        var type=photoData.type.split('/')[1];
+        var photo=timestamp+'.'+type;
+        var newPath=path.join(__dirname, '../../', '/public/photo/' + photo);
+        fs.writeFile(newPath, data, function(err) {
+          req.photo=photo;
+          next();
+        })
+      })
+    }else{
+      next();
+    }
+  }
   //小说增加
   exports.Addnovel=function(req,res){
     var novelObj = req.body.newnovel;
@@ -62,6 +105,12 @@ var _underscore=require('underscore');
   exports.Addcollect=function(req,res){
     var collectObj = req.body.newcollect;
     var Newname=collectObj.name;
+    console.log(collectObj);
+    if(req.poster){
+      console.log("poster---------"+req.poster)
+      collectObj.cover="cover/"+req.poster;
+    }
+    console.log('修改后'+collectObj);
     collections.findOne({}).sort({'id': -1}).exec(function(err,lastcollect) {
       var collectLen=parseInt(lastcollect.id.slice(2));
       collections.findOne({name:Newname}).exec(function (err, collect) {
@@ -70,6 +119,7 @@ var _underscore=require('underscore');
           if (err) {console.log(err);}
           if(collect==null && user!==null){//书单不存在
             var _collect=createCollect(collectObj,collectLen);
+            //增加fengmian
             _collect.save(function (err, collect) {
               if (err) {console.log(err);}
               res.redirect('/collect/' + collect.id);
@@ -167,7 +217,7 @@ var _underscore=require('underscore');
         editor:collectObj.editor,
         meta: {'createAt': Date.now(),
                'updateAt': Date.now()},
-        cover:'cover/b'+Math.round(Math.random()*10)+'.jpg' ,       
+        cover: collectObj.cover || 'cover/b'+Math.round(Math.random()*10)+'.jpg' ,       
         loved: [],
         novels: []
     });

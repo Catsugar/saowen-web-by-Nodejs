@@ -108,10 +108,11 @@ hr{padding:0;margin:10px 0;}
 	margin-right:15px;
 	margin-top:-4px;}
 .user-head{position: relative;}
-//.user-head:hover div{display: block;}
 .user-head a{
 	color:#eee;
-	margin-left:10px;}
+	margin-left:10px;
+	vertical-align: middle;
+}
 .user-list{
 	position: absolute;
 	top:50px;
@@ -129,6 +130,20 @@ hr{padding:0;margin:10px 0;}
 	flex:none;
 	color:#eee;}
 .user-list div:hover{background-color: #666;}
+.headerphoto{
+	width: 35px;
+	height:35px;
+	border-radius: 50%;
+	background-size:cover;
+	background-position: center;
+	display: inline-block;
+}
+.leftphoto{
+	width: 60px;
+	height:60px;
+	border-radius: 50%;
+	background-size:cover;
+	background-position: center;}
 /******************布局********************/
 .main{
 	position:relative;
@@ -353,6 +368,13 @@ textarea{
 .edit:hover,.edit:active,.edit:link,.edit:visited{text-decoration:none;color:#333;}
 
 /***********************弹出窗***************************/
+.input-append{position: relative;}
+.uploadbtn{
+	position: absolute;
+	left: 190px;
+	top:0px;
+}
+
 .modal-dialog{	
 	width:300px;
 	position:fixed;
@@ -405,8 +427,18 @@ textarea{
 	min-height:500px;
 	padding:20px 1px;
 	z-index:0;}
-.back img{box-shadow: 0  0 0.5rem rgba(0,0,0,0.5);}
-.back img:hover{box-shadow: 0 0 1rem rgba(0,0,0,0.5);}
+.photobox{
+	box-shadow: 0  0 0.5rem rgba(0,0,0,0.5);
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background-size:cover;
+	background-position: center;
+
+}
+
+.photobox:hover{box-shadow: 0 0 1rem rgba(0,0,0,0.5);}
+
 .back h3{
 	text-align:center;
 	padding :20px 0 0 0;}

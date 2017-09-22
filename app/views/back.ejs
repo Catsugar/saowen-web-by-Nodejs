@@ -1,7 +1,12 @@
 ﻿
 <!--主体-->
 <section class="back">
-  <img src='/<%=user.photo %>' class="img-circle  center-block" width="100px">
+  
+  <%if(_user!==undefined && user._id==_user._id){%>
+    <a data-toggle="modal" data-target="#myPhoto" class="center-block photobox"  style="background-image:url('/<%=user.photo %>')"></a>
+  <% }else{ %>
+    <a data-toggle="modal" data-target="#mySignin" class="center-block photobox" style="background-image:url('/<%=user.photo %>')"></a>
+  <% } %>
   <input type="text" style="display: none" name='newuser[id]' value="<%= user.id %>" >
   <h3><b><%=user.name %></b></h3>
   <div class="des_box">

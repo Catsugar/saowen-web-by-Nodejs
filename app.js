@@ -23,6 +23,7 @@ mongoose.connection.on('disconnected', () => {
 app.set('views','./app/views');
 app.set('view engine','ejs');
 app.use(cookieParser());
+app.use(require('connect-multiparty')());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   secret: 'saowen',

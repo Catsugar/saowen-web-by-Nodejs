@@ -8,12 +8,20 @@
 		<h3 class="modal-title"><b>创建扫文单</b></h3>
 	   </div>
 	   <div class="modal-body">
-	     <form method="post" action="/new/collect">
+	     <form method="post" action="/new/collect" enctype="multipart/form-data">
 	     <% if(_user!==undefined){ %>
 	     <input type="text" name='newcollect[editor]' style="display: none" value="<%= _user._id %>" >
 	     <% } %>
 		 <input type="text"  placeholder="输入名称" name='newcollect[name]'>
          <input type="text"  placeholder="一句话描述文単" name='newcollect[description]' >
+         <input type="text" style="display: none" placeholder="封面" name='newcollect[cover]' >
+
+         <div class="input-append">
+         <input id="lefile" type="file" style="display:none" name='upposter' >
+	     <input id="photoCover" class="input-large" type="text" style="height:30px;">
+	     <span class="btn btn-sm btn-default uploadbtn" onclick="$('input[id=lefile]').click();" style="width:50px;">上传</span>
+         </div>
+
 		 <div class="modal-btn">
 		    <button type="submit" class="btn btn-default" >确定</button>
 		    <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>

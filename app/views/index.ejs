@@ -9,7 +9,7 @@
     <!--item-->
       <li>
         <div class="content-left"> 
-          <a href="/back/<%= comment.userID.id %>"> <img src="/<%= comment.userID.photo %>" class="img-circle" width="60px"></a> 
+          <a class="leftphoto"  href="/back/<%= comment.userID.id %>" style="background-image:url('/<%= comment.userID.photo %>')"></a> 
           <a href=""><%= comment.userID.name %></a>
         </div>
         <div class="content-right"> 
