@@ -181,6 +181,7 @@ var path=require('path');
         editor:  novelObj.editor,
         meta: {'createAt': Date.now(),
                'updateAt': Date.now()},
+        look:0,
         loved: [],
         novels: []
     });
@@ -203,6 +204,7 @@ var path=require('path');
         actor: novelObj.actor,
         web: novelObj.web,
         tags: [],
+        look:0,
         collects: [],
         comments: []
     });
@@ -217,7 +219,8 @@ var path=require('path');
         editor:collectObj.editor,
         meta: {'createAt': Date.now(),
                'updateAt': Date.now()},
-        cover: collectObj.cover || 'cover/b'+Math.round(Math.random()*10)+'.jpg' ,       
+        cover: collectObj.cover || 'cover/b'+Math.round(Math.random()*10)+'.jpg' ,   
+        look:0,    
         loved: [],
         novels: []
     });

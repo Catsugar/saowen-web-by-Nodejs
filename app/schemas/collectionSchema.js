@@ -17,6 +17,7 @@ var collectionSchema=new Schema({
         }
     },
     cover: String,
+    look: [{type:Number, default:0}],
     loved: [{type: ObjectId, ref:'User'}],
     novels: [{type: ObjectId, ref:'Novel'}]
 })

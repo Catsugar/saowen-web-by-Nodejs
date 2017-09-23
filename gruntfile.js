@@ -32,6 +32,12 @@ module.exports = function(grunt) {
         }
       }
     },
+    mochaTest: {
+      options: {
+        reporter: 'spec'
+      },
+      src: ['test/**/*.js']
+    },
     concurrent: {
       tasks: ['nodemon', 'watch'],
       options: {
@@ -42,13 +48,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch') //文件添加修改时重新执行
 	grunt.loadNpmTasks('grunt-concurrent')  //优化慢任务
 	grunt.loadNpmTasks('grunt-nodemon')  //监听入口文件
-   /* grunt.loadNpmTasks('grunt-mocha-test')
-    grunt.loadNpmTasks('grunt-contrib-less')
+  grunt.loadNpmTasks('grunt-mocha-test')//单元测试模块
+    /*grunt.loadNpmTasks('grunt-contrib-less')
     grunt.loadNpmTasks('grunt-contrib-uglify')
     grunt.loadNpmTasks('grunt-contrib-jshint')*/
 	
 	grunt.option('force',true)
 	grunt.registerTask('default',['concurrent'])
-	//grunt.registerTask('test', ['mochaTest'])
+	grunt.registerTask('test', ['mochaTest'])
 
 }

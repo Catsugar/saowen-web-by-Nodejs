@@ -4,7 +4,9 @@
 <!--左边-->
   <div class="main-left">
     <div class="novel-box">
-      <h1><b><%= author.name %></b></h1>&nbsp;&nbsp;&nbsp;&nbsp;共<i><%= author.loved.length %></i>人收藏
+      <h1><b><%= author.name %></b></h1>
+      &nbsp;&nbsp;&nbsp;&nbsp;共<i><%= author.look %></i>人查看
+      &nbsp;&nbsp;&nbsp;&nbsp;共<i><%= author.loved.length %></i>人收藏
       &nbsp;&nbsp;by&nbsp;<i><%= author.editor.name %></i>
       <%if(_user!==undefined){%>
         <a href="javascript:void(0);" class="edit" data-toggle="modal" data-target="#myAuthor"><i class="iconfont icon-comment-pen"></i></a>

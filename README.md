@@ -43,7 +43,13 @@ npm install bcryptjs --save-dev
 npm install connect-mongo --save
 
 ```
+#### 单元测试
 
+```
+npm install mocha grunt-mocha-test --save-dev
+npm install should --save-dev
+
+```
 #### 进度记录
 已经搭好了基本框架，目前做好的：
 * 基本框架和每个页面的渲染。
@@ -59,13 +65,13 @@ npm install connect-mongo --save
 * 搜索功能和tag功能。
 * 分页。
 *上传封面和海报
+* 统计功能
 
 
 
 
 还没做好的功能：
 * 文单收录小说功能。
-* 排行榜功能好像也有点问题。
 * 暂时不做互相评论功能。
 
 

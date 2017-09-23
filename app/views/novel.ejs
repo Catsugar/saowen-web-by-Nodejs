@@ -6,6 +6,7 @@
     <div class="novel-box">
       <h1><b><%=novel.name %></b></h1>&nbsp;&nbsp;&nbsp;&nbsp;作者：
       <a href='/author/<%=novel.author.id %>' class="author"><%=novel.author.name %></a>
+      &nbsp;&nbsp;&nbsp;&nbsp;共<i><%= novel.look %></i>人查看
       <%if(_user!==undefined){%>
       <a href="javascript:void(0);" class="edit" data-toggle="modal" data-target="#myNovel"><i class="iconfont icon-comment-pen"></i></a>
       <% }else{ %> 

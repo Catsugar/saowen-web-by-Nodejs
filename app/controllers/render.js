@@ -13,11 +13,11 @@ var count=8;//每页几条数据
     var _user = req.session.user;
     var page= parseInt(req.query.p) || 0;
     var num=page*count;
-    novels.find({}).sort({'comments':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
+    novels.find({}).sort({'look':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
       if(err){console.log(err);}
-      authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
+      authors.find({}).sort({'look':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
         if(err){console.log(err);}
-        collections.find({}).sort({'loved.length':-1}).limit(10).exec(function(err, collectionRanks) {
+        collections.find({}).sort({'look':-1}).limit(10).exec(function(err, collectionRanks) {
           if(err){console.log(err);}   
           comments.find({}).populate('userID').populate({path:'novelID', populate:{path:'author'}}).sort({'meta.updateAt': -1}).exec(function(err, allcomments) {  
             if(err){console.log(err);}
@@ -42,11 +42,11 @@ var count=8;//每页几条数据
     var page= parseInt(req.query.p) || 0;
     var num=page*count;
     var _user = req.session.user;
-    novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
+    novels.find({}).sort({'look':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
       if(err){console.log(err);}
-      authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
+      authors.find({}).sort({'look':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
         if(err){console.log(err);}
-        collections.find({}).sort({'loved.length':-1}).limit(10).exec(function(err, collectionRanks) {
+        collections.find({}).sort({'look':-1}).limit(10).exec(function(err, collectionRanks) {
           if(err){console.log(err);} 
           authors.find({}).populate('novels').sort({'meta.updateAt': -1}).exec(function(err, allauthors) { 
             if(err){console.log(err);}
@@ -69,13 +69,17 @@ var count=8;//每页几条数据
   //作者详情
   exports.author=function(req,res){
     var _user = req.session.user;
-    novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
+    novels.find({}).sort({'look':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
       if(err){console.log(err);}
-      authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
+      authors.find({}).sort({'look':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
         if(err){console.log(err);}
-        collections.find({}).sort({'loved.length':-1}).limit(10).exec(function(err, collectionRanks) {
+        collections.find({}).sort({'look':-1}).limit(10).exec(function(err, collectionRanks) {
           if(err){console.log(err);}   
           var ID = req.params.id;
+          //更新查看次数
+          authors.update({id: ID},{$inc:{look:1}},function(err){
+            if(err){console.log(err);} 
+          })
           authors.findOne({id: ID}).populate('editor').populate({path:'novels', populate:{path:'comments'}})
           .exec(function(err, author) {
             if(err){console.log(err);};
@@ -97,11 +101,11 @@ var count=8;//每页几条数据
     var page= parseInt(req.query.p) || 0;
     var num=page*count;
     var _user = req.session.user;
-    novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
+    novels.find({}).sort({'look':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
       if(err){console.log(err);}
-      authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
+      authors.find({}).sort({'look':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
         if(err){console.log(err);}
-        collections.find({}).sort({'loved.length':-1}).limit(10).exec(function(err, collectionRanks) {
+        collections.find({}).sort({'look':-1}).limit(10).exec(function(err, collectionRanks) {
           if(err){console.log(err);}   
           collections.find({}).populate('editor').sort({'meta.updateAt': -1}).exec(function(err, allcollections) { 
             if(err){console.log(err);};
@@ -124,13 +128,17 @@ var count=8;//每页几条数据
     //书单详情
   exports.collect=function(req,res){
     var _user = req.session.user;
-    novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
+    novels.find({}).sort({'look':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
       if(err){console.log(err);}
-      authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
+      authors.find({}).sort({'look':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
         if(err){console.log(err);}
-        collections.find({}).sort({'loved.length':-1}).limit(10).exec(function(err, collectionRanks) {
+        collections.find({}).sort({'look':-1}).limit(10).exec(function(err, collectionRanks) {
           if(err){console.log(err);} 
           var ID = req.params.id;
+          //更新查看次数
+          collections.update({id: ID},{$inc:{look:1}},function(err){
+            if(err){console.log(err);} 
+          })
           collections.findOne({id: ID}).populate('editor').populate({path:'novels', populate:[{path:'author'},{path:'comments'}]})
           .exec(function(err,collection) {
             if(err){console.log(err);};
@@ -151,13 +159,17 @@ var count=8;//每页几条数据
   exports.novel=function(req,res){
     var User = req.session.user;
     var userID=(User!==undefined) ? User._id:undefined;
-    novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
+    novels.find({}).sort({'look':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
       if(err){console.log(err);}
-      authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
+      authors.find({}).sort({'look':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
         if(err){console.log(err);}
-        collections.find({}).sort({'loved.length':-1}).limit(10).exec(function(err, collectionRanks) {
+        collections.find({}).sort({'look':-1}).limit(10).exec(function(err, collectionRanks) {
           if(err){console.log(err);} 
           var ID = req.params.id;
+          //更新查看次数
+          novels.update({id: ID},{$inc:{look:1}},function(err){
+            if(err){console.log(err);} 
+          })
           novels.findOne({id: ID}).populate('author').populate('collects').populate({ path:'comments', populate:{path:'userID'}})
           .exec(function(err,novel) {
             if(err){console.log(err);};

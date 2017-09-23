@@ -4,7 +4,9 @@
 <!--左边-->
   <div class="main-left">
     <div class="novel-box">
-      <h1><b><%= collection.name %></b></h1>&nbsp;&nbsp;&nbsp;&nbsp;共<i><%= collection.loved.length %></i>人收藏
+      <h1><b><%= collection.name %></b></h1>
+      &nbsp;&nbsp;&nbsp;&nbsp;共<i><%= collection.look %></i>人查看
+      &nbsp;&nbsp;&nbsp;&nbsp;共<i><%= collection.loved.length %></i>人收藏
       &nbsp;&nbsp;by&nbsp;<i><%= collection.editor.name %></i>
       <%if(_user!==undefined && collection.editor._id ==_user._id){%>
       <a href="javascript:void(0);" class="edit" data-toggle="modal" data-target="#myCollect"><i class="iconfont icon-comment-pen"></i></a>

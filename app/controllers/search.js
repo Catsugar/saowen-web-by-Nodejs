@@ -19,11 +19,11 @@ var count=8;//每页几条数据
     var KEY = req.query.key;
     var page= parseInt(req.query.p) || 0;
     var num=page*count;
-    novels.find({}).sort({'comments.length':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
+    novels.find({}).sort({'look':-1}).limit(10).populate('author').populate('comments').exec(function(err, novelRanks) {
       if(err){console.log(err);}
-      authors.find({}).sort({'loved.length':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
+      authors.find({}).sort({'look':-1}).limit(10).populate('novels').exec(function(err, authorRanks) {
         if(err){console.log(err);}
-        collections.find({}).sort({'loved.length':-1}).limit(10).exec(function(err, collectionRanks) {
+        collections.find({}).sort({'look':-1}).limit(10).exec(function(err, collectionRanks) {
           if(err){console.log(err);} 
           novels.find({'name': { $regex: KEY, $options: 'i' }})
           .populate('author').populate('comments').sort({'meta.updateAt': -1}).limit(10).skip(index).exec(function(err, allnovels) {  

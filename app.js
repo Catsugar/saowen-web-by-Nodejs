@@ -8,6 +8,7 @@ var express=require('express'),//加载模块
     logger = require('morgan');
 var port=process.env.PORT || 3000;//设置端口
 var app=express();//启动web服务器
+var fs=require('fs');
 //启动数据库
 mongoose.connect('mongodb://localhost:27017/saowen', {useMongoClient: true,});
 mongoose.connection.on('connected', () => {
@@ -19,6 +20,27 @@ mongoose.connection.on('error', (err) => {
 mongoose.connection.on('disconnected', () => {
   console.log('MongoDB Connection Failed!');
 });
+
+// models loading
+var models_path = __dirname + '/app/models'
+var walk = function(path) {
+  fs
+    .readdirSync(path)
+    .forEach(function(file) {
+      var newPath = path + '/' + file
+      var stat = fs.statSync(newPath)
+
+      if (stat.isFile()) {
+        if (/(.*)\.(js|coffee)/.test(file)) {
+          require(newPath)
+        }
+      }
+      else if (stat.isDirectory()) {
+        walk(newPath)
+      }
+    })
+}
+
 //创建服务器实例，设置端口
 app.set('views','./app/views');
 app.set('view engine','ejs');
