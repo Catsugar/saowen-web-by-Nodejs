@@ -26,7 +26,7 @@
       <% if (collection.novels.length) { %> 
       <ul class="collection-box">
         <% collection.novels.forEach(function(novel){ %>  
-        <li>
+        <li class="item-<%= novel._id %>">
            <a href='/novel/<%= novel.id %>' class="title"><%= novel.name %></a>
            &nbsp;&nbsp;&nbsp;&nbsp;作者：<a href='/author/<%= novel.author.id %>' class="author"><%=novel.author.name %></a>
            &nbsp;&nbsp;&nbsp;&nbsp;平均分：
@@ -47,7 +47,7 @@
               未评分
             <% } %> 
             <%if(_user!==undefined && collection.editor._id ==_user._id){%>
-              <button type="button" class="btn btn-sm btn-danger more-btn pull-right" data-tid="<%= collect._id %>" data-uid="<%=_user._id %>">删除</button>
+              <button type="button" class="btn btn-sm btn-danger more-btn pull-right cancel" data-tid="<%= novel._id %>" data-uid="<%=collection._id %>">删除</button>
             <% } %>
            <br>
            <b><%=novel.type %></b>/<b><%=novel.progress %></b>/<b><%=novel.len %></b>/<b><%=novel.year %></b>/<b><%=novel.taste %></b>/<b><%=novel.actor %></b><br>

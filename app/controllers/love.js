@@ -9,8 +9,6 @@ var _underscore=require('underscore');
   exports.Love=function (req, res) {
     var tid= req.query.tid;
     var uid= req.query.uid;
-    console.log("tid---"+tid);
-    console.log("uid---"+uid);
     if (tid && uid) {
       //收藏作者
       authors.findOne({_id:tid}).exec(function (err, author) {
@@ -74,8 +72,6 @@ var _underscore=require('underscore');
         if(novel!==null){
           collections.findOne({_id:uid}).exec(function (err, collect){
             if (err) {console.log(err);}
-            //console.log(novel);
-            //console.log(collect);
             //在小说处加入文单
             var novelObj=novel;
             if(novelObj.collects.indexOf(uid)===-1){
@@ -158,6 +154,7 @@ var _underscore=require('underscore');
       //文单内取消小说
       novels.findOne({_id:tid}).exec(function (err, novel) { 
         if (err) {console.log(err);}
+        console.log(novel);
         if(novel!==null ){
           collections.findOne({_id:uid}).exec(function (err, collect){
             if (err) {console.log(err);}

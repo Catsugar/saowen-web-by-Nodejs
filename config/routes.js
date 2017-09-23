@@ -30,7 +30,8 @@ module.exports=function (app) {
   app.route('/edit/novel').post(Edit.Editnovel);
   app.route('/edit/author').post(Edit.Editauthor);
   app.route('/edit/collect').post(Add.Addcover,Edit.Editcollect);
-  app.route('/edit/user').post(Add.Addphoto,Edit.Edituser);
+  app.route('/edit/user/photo').post(Add.Addphoto,Edit.Edituser);
+  app.route('/edit/user/des').post(Edit.Edituser);
   app.route('/back/admin').delete(Del.Delete);
   app.route('/back/love').post(Love.Love);//收藏
   app.route('/back/cancel').post(Love.Cancel);//取消收藏

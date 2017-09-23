@@ -1,4 +1,30 @@
 $(function () {
+   //注册按钮
+    $('.register').click(function (e) {
+        var target = $(e.target);
+        $.ajax({
+            type: 'POST', 
+            url: '/new/user',
+        })
+        .done(function (results) {
+            if (results.success === 0) {
+               $('#myAlert').modal('show');
+            }
+        });
+    });
+   //登录按钮
+    $('.login').click(function (e) {
+        var target = $(e.target);
+        $.ajax({
+            type: 'POST', 
+            url: '/user/signin',
+        })
+        .done(function (results) {
+            if (results.success === 0 {
+               $('#myInfo').modal('show');
+            }
+        });
+    });
     $('.del').click(function (e) {
         var target = $(e.target);
         var id = target.data('id');
@@ -37,15 +63,13 @@ $(function () {
         var target = $(e.target);
         var tid = target.data('tid');
         var uid = target.data('uid');
-        console.log("**************tid---"+tid);
-        console.log("**************uid---"+uid);
         $.ajax({
             type: 'POST', 
             url: '/back/love?tid='+tid+'&uid='+uid
         })
         .done(function (results) {
             if (results.success === 1) {
-                $('myLoved').modal('show');
+                $('#myLoved').modal('show');
             }
         });
     });

@@ -28,9 +28,8 @@ var path=require('path');
     }
   }
   //增加头像
-    exports.Addphoto=function(req,res,next){
+  exports.Addphoto=function(req,res,next){
     var photoData=req.files.upphoto;
-    console.log(photoData);
     var filePath=photoData.path;
     var originalFilename=photoData.originalFilename;
     if(originalFilename){

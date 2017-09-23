@@ -16,15 +16,16 @@ var _underscore=require('underscore');
         if (err) {console.log(err);}
         if(user!==null){
           console.log("该用户已经被注册");
+          res.redirect('/');
         } else {//用户不存在
           var _user=createUser(userObj,userLen); 
           _user.save(function (err, user) {
             if (err) {console.log(err);}
+            res.redirect('/');
           });
         }
       })
     })
-    res.redirect('/');
   }
   //登录
   exports.Signin=function(req,res){
@@ -38,7 +39,7 @@ var _underscore=require('underscore');
         return res.redirect('/');
       } else if(user!==null ){
         console.log("存在该用户");
-        user.comparePassword(logpassword,user,function (err,isMatch) {
+        user.comparePassword(logpassword,function (err,isMatch) {
           if (err) {console.log(err);}
           if(isMatch){
             console.log("密码正确，可以登录");

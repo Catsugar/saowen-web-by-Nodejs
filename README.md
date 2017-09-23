@@ -24,17 +24,22 @@ npm install bootstrap
 #### Grunt 集成
 
 ```
-npm install grunt --save-dev
+npm install grunt --save
 
 npm install grunt-cli -g
 
-npm install grunt-contrib-watch --save-dev
+npm install grunt-contrib-watch --save
 
-npm install grunt-concurrent --save-dev
+npm install grunt-concurrent --save
 
-npm install grunt-nodemon --save-dev
+npm install grunt-nodemon --save
 
-npm install bcryptjs --save-dev
+npm install bcryptjs --save
+
+```
+#### 密码加密
+```
+npm install bcryptjs  --save
 
 ```
 #### 会话持久化
@@ -46,8 +51,8 @@ npm install connect-mongo --save
 #### 单元测试
 
 ```
-npm install mocha grunt-mocha-test --save-dev
-npm install should --save-dev
+npm install mocha grunt-mocha-test --save
+npm install should --save
 
 ```
 #### 进度记录
@@ -66,12 +71,13 @@ npm install should --save-dev
 * 分页。
 *上传封面和海报
 * 统计功能
+* 文单收录小说功能。
 
 
 
 
 还没做好的功能：
-* 文单收录小说功能。
+* 注册后密码不能登录问题。
 * 暂时不做互相评论功能。
 
 

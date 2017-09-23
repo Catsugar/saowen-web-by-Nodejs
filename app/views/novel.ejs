@@ -20,8 +20,8 @@
                 <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#mySignin">新建扫文单</a></li>
              <% }else{ %>
                 <% _user.editcollect.forEach(function(collect){ %>
-                  <li type="button" role="presentation" class="lovebtn" data-tid="<%= novel._id %>" data-uid="<%= collect._id %>" data-toggle="modal" data-target="#myLoved"> 
-                    <a  role="menuitem" tabindex="-1" ><%= collect.name %></a>
+                  <li type="button" role="presentation" > 
+                    <a  role="menuitem" tabindex="-1" class="lovebtn" data-tid="<%= novel._id %>" data-uid="<%= collect._id %>" data-toggle="modal" data-target="#myLoved"><%= collect.name %></a>
                   </li>
                 <% }) %> 
                 <li role="presentation">
