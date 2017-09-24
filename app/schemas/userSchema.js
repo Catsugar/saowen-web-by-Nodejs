@@ -36,24 +36,23 @@ userSchema.pre('save', function (next) {
     } else {
         this.meta.updateAt = Date.now();
     }
+    next()
     //生成随机的盐
-    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-    if (err) return next(err)
-
-    bcrypt.hash(user.password, salt, function(err, hash) {
+    /*bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
       if (err) return next(err)
-
-      user.password = hash
-      next()
-    })
-  })
+      bcrypt.hash(user.password, salt, function(err, hash) {
+        if (err) return next(err)
+        user.password = hash
+        next()
+      })
+    })*/
 })
 //模式的实例方法
 userSchema.methods = {
+    //验证盐
   comparePassword: function(_password, cb) {
     bcrypt.compare(_password, this.password, function(err, isMatch) {
       if (err) return cb(err)
-
       cb(null, isMatch)
     })
   }

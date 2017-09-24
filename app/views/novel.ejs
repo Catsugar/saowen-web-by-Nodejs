@@ -21,7 +21,7 @@
              <% }else{ %>
                 <% _user.editcollect.forEach(function(collect){ %>
                   <li type="button" role="presentation" > 
-                    <a  role="menuitem" tabindex="-1" class="lovebtn" data-tid="<%= novel._id %>" data-uid="<%= collect._id %>" data-toggle="modal" data-target="#myLoved"><%= collect.name %></a>
+                    <a  role="menuitem" tabindex="-1" class="lovebtn" data-tid="<%= novel._id %>" data-uid="<%= collect._id %>"><%= collect.name %></a>
                   </li>
                 <% }) %> 
                 <li role="presentation">

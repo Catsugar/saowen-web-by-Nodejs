@@ -20,7 +20,7 @@ $(function () {
             url: '/user/signin',
         })
         .done(function (results) {
-            if (results.success === 0 {
+            if (results.success === 0 ){
                $('#myInfo').modal('show');
             }
         });
@@ -63,6 +63,8 @@ $(function () {
         var target = $(e.target);
         var tid = target.data('tid');
         var uid = target.data('uid');
+        console.log('tid'+tid)
+        console.log('uid'+uid)
         $.ajax({
             type: 'POST', 
             url: '/back/love?tid='+tid+'&uid='+uid

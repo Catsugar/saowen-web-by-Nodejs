@@ -14,7 +14,7 @@
         <a href="javascript:void(0);" class="edit" data-toggle="modal" data-target="#mySignin"><i class="iconfont icon-comment-pen"></i></a>
       <% } %>
       <%if(_user!==undefined){%>
-        <button type="button" class="btn pull-right btn-warning btn-sm lovebtn" data-tid="<%=author._id %>" data-uid="<%=_user._id %>" data-toggle="modal" data-target="#myLoved">收藏</button>
+        <button type="button" class="btn pull-right btn-warning btn-sm lovebtn" data-tid="<%=author._id %>" data-uid="<%=_user._id %>" >收藏</button>
       <% }else{ %>
         <button type="button" class="btn pull-right btn-warning btn-sm"  data-toggle="modal" data-target="#mySignin">收藏</button>
       <% } %>
@@ -28,7 +28,7 @@
       <% author.novels.forEach(function(novel){ %>  
         <li>
             <a href='/novel/<%= novel.id %>' class="title"><%= novel.name %></a>
-            &nbsp;&nbsp;&nbsp;&nbsp;作者：
+            &nbsp;&nbsp;&nbsp;&nbsp;作者：<%= author.name %>
             &nbsp;&nbsp;&nbsp;&nbsp;平均分：
             <% if (novel.comments.length) { %> 
               <% var avg=0 %>

@@ -5,6 +5,8 @@ var authors=require('../models/author.js');
 var collections=require('../models/collection.js');
 var comments=require('../models/comment.js');
 var _underscore=require('underscore');
+var bcrypt= require('bcryptjs'),//加密库
+    SALT_WORK_FACTOR=10;
  //增加用户----注册
   exports.Adduser=function(req,res){
     var userObj = req.body.newuser;//req.param('user')
@@ -18,7 +20,12 @@ var _underscore=require('underscore');
           console.log("该用户已经被注册");
           res.redirect('/');
         } else {//用户不存在
-          var _user=createUser(userObj,userLen); 
+          var _user=createUser(userObj,userLen);
+          
+          var salt = bcrypt.genSaltSync(10);
+          var hash = bcrypt.hashSync(_user.password, salt);
+          _user.password=hash;
+
           _user.save(function (err, user) {
             if (err) {console.log(err);}
             res.redirect('/');

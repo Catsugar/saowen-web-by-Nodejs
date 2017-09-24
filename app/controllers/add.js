@@ -71,21 +71,28 @@ var path=require('path');
                   var authorObj=createAuthor(novelObj,authorLen); 
                   authorObj.save(function (err, author) {
                     if (err) {console.log(err);}
-                  });  
+                  }); 
+                  var _novel=createNovel(novelObj,novelLen,authorObj); 
+                  _novel.save(function (err, novel) {
+                    if (err) {console.log(err);}
+                    res.redirect('/novel/' + novel.id);
+                  });
+                  //放入作者内
+                  authorObj.novels.push(_novel._id); 
                 }else if(author!==null && novel==null){//作者存在-----找作者，创小说
                   var authorObj=author; 
+                  var _novel=createNovel(novelObj,novelLen,authorObj); 
+                  _novel.save(function (err, novel) {
+                    if (err) {console.log(err);}
+                    res.redirect('/novel/' + novel.id);
+                  });
+                  //放入作者内
+                  authorObj.novels.push(_novel._id); 
+                  var _author = _underscore.extend(author, authorObj);
+                  _author.save(function (err, author) {
+                    if (err) {console.log(err);}
+                  })
                 }
-                var _novel=createNovel(novelObj,novelLen,authorObj); 
-                 _novel.save(function (err, novel) {
-                  if (err) {console.log(err);}
-                  res.redirect('/novel/' + novel.id);
-                });
-                //放入作者内
-                authorObj.novels.push(_novel._id);
-                var _author = _underscore.extend(author, authorObj);
-                _author.save(function (err, author) {
-                  if (err) {console.log(err);}
-                });
                 //放入编辑者
                 var userObj=user;
                 userObj.editnovel.push(_novel._id);
@@ -106,7 +113,6 @@ var path=require('path');
     var Newname=collectObj.name;
     console.log(collectObj);
     if(req.poster){
-      console.log("poster---------"+req.poster)
       collectObj.cover="cover/"+req.poster;
     }
     console.log('修改后'+collectObj);
@@ -151,7 +157,9 @@ var path=require('path');
             })
             var novelObj=novel; 
             novelObj.comments.push(_comment._id);
-            novelObj.tags.push(commentObj.tag);
+            if(commentObj.tag!==''&& novelObj.tags.indexOf(commentObj.tag)==-1){
+              novelObj.tags.push(commentObj.tag);
+            }
             var _novel = _underscore.extend(novel, novelObj);
             _novel.save(function (err, novel) {
               if (err) {console.log(err);}

@@ -24,7 +24,7 @@ var novelSchema=new Schema({
     actor: String,
     web: String,
     tags: [],
-    look: [{type:Number, default:0}],
+    look: {type:Number, default:0},
     collects: [{type: ObjectId, ref:'Collection'}],
     comments: [{type: ObjectId, ref:'Comment'}]  
 })

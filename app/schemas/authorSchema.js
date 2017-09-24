@@ -16,7 +16,7 @@ var authorSchema=new Schema({
         default: Date.now()
         }
     },
-    look: [{type:Number, default:0}],
+    look: {type:Number, default:0},
     loved: [{type: ObjectId, ref:'User'}],
     novels: [{type: ObjectId, ref:'Novel'}]
 })

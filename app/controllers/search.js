@@ -25,20 +25,29 @@ var count=8;//每页几条数据
         if(err){console.log(err);}
         collections.find({}).sort({'look':-1}).limit(10).exec(function(err, collectionRanks) {
           if(err){console.log(err);} 
-          novels.find({'name': { $regex: KEY, $options: 'i' }})
-          .populate('author').populate('comments').sort({'meta.updateAt': -1}).limit(10).skip(index).exec(function(err, allnovels) {  
-            if(err){console.log(err);}  
-            var novels=allnovels.slice(num,num+count);
-            res.render('search',{
-              title:KEY+'的搜索结果：',
-              novels: novels,
-              currentPage:page,
-              totalPage: Math.ceil(allnovels.length/count),
-              novelRanks:novelRanks,
-              authorRanks:authorRanks,
-              collectionRanks:collectionRanks,
-              _user:_user,
-              KEY:KEY
+          novels.find({$or: [{'name': { $regex: KEY, $options: 'i' }}, {'tags': { $regex: KEY, $options: 'i' }}]})
+          .populate('author').populate('comments').sort({'meta.updateAt': -1}).exec(function(err, allnovels) {  
+            if(err){console.log(err);} 
+            authors.find({$or: [{'name': { $regex: KEY, $options: 'i' }}]})
+            .populate({path:'novels', populate:[{path:'author'},{path:'comments'}]}).sort({'meta.updateAt': -1}).exec(function(err, allauthors) {
+              if(err){console.log(err);} 
+              allauthors.forEach(function(author){
+                author.novels.forEach(function(novel){
+                  allnovels.push(novel);
+                })
+              })
+              var novels=allnovels.slice(num,num+count);
+              res.render('search',{
+                title:KEY+'的搜索结果：',
+                novels: novels,
+                currentPage:page,
+                totalPage: Math.ceil(allnovels.length/count),
+                novelRanks:novelRanks,
+                authorRanks:authorRanks,
+                collectionRanks:collectionRanks,
+                _user:_user,
+                KEY:KEY
+              })
             })
           })
         })
