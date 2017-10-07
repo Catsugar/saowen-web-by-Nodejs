@@ -1,0 +1,27 @@
+{
+  "apps" : [{
+    "name"        : "saowen-web",
+    "script"      : "app.js",
+    "watch"       : true,
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "env_production" : {
+       "NODE_ENV": "production"
+    }
+  }],
+  "deploy":{
+    "production":{
+      "host":["47.95.114.86"],
+      "ref":"origin/master",
+      "repo":"git@github.com:Catsugar/saowen-web-by-Nodejs.git",
+      "path":"/www/saowen",
+      "ssh_options":"StrictHostKeyChecking=no",
+      "env": {
+        "NODE_ENV": "production"
+      },
+
+    }
+  }
+
+}
