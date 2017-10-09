@@ -36,29 +36,31 @@ var bcrypt= require('bcryptjs'),//加密库
   }
   //登录
   exports.Signin=function(req,res){
-    var userObj = req.body.newuser;
-    var logname=userObj.name;
-    var logpassword=userObj.password;
-    users.findOne({name:logname}).exec(function (err, user) {
-      if (err) {console.log(err);}
-      if(user==null){
-        console.log("不存在该用户");
-        return res.redirect('/');
-      } else if(user!==null ){
-        console.log("存在该用户");
-        user.comparePassword(logpassword,function (err,isMatch) {
-          if (err) {console.log(err);}
-          if(isMatch){
-            console.log("密码正确，可以登录");
-            req.session.user=user;
-            res.redirect('/back/' + user.id);  
-          }else{
-            console.log("密码不正确");
-            res.redirect('/');
-          }          
-        })
-      }
-    })
+    if(req.body.newuser){
+      var userObj = req.body.newuser;
+      var logname=userObj.name;
+      var logpassword=userObj.password;
+      users.findOne({name:logname}).exec(function (err, user) {
+        if (err) {console.log(err);}
+        if(user==null){
+          console.log("不存在该用户");
+          return res.redirect('/');
+        } else if(user!==null ){
+          console.log("存在该用户");
+          user.comparePassword(logpassword,function (err,isMatch) {
+            if (err) {console.log(err);}
+            if(isMatch){
+              console.log("密码正确，可以登录");
+              req.session.user=user;
+              res.redirect('/back/' + user.id);  
+            }else{
+              console.log("密码不正确");
+              res.redirect('/');
+            }          
+          })
+        }
+      })
+    }
   }
   //登出
   exports.Logout=function(req,res){
