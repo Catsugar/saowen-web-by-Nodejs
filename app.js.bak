@@ -59,7 +59,7 @@ if('development'===app.get('env')){
   //mongoose.set('debug',true);
 }
 app.listen(port)//监听端口
-app.set('port',80;
+app.set('port',80);
 console.log(port+'端口启动');
 //设置模板
 var partials = require('express-partials');
