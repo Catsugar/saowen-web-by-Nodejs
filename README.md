@@ -55,6 +55,42 @@ npm install mocha grunt-mocha-test --save
 npm install should --save
 
 ```
+
+#### 网站部署
+* 买服务器和域名
+* 配置环境
+```
+vi /etc/ssh/sshd_config
+```
+* 更新
+```
+apt-get update
+```
+* 安装相关模块
+```
+apt-get install vim openssl build-essential libssl-dev wget curl git
+```
+* 安装nvm
+```
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash
+nvm install v6.11.3
+nvm use v6.11.3
+nvm alias default v6.11.3
+node -v
+``
+* 指定npm配置
+```
+npm --registry=https://registry.npm.taobao.org install -g npm
+npm -v
+echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
+npm --registry=https://registry.npm.taobao.org install -g cnpm
+cnpm install webpack grunt-cli -g
+``
+* 安装
+```
+apt-get install nginx 
+/etc/nginx/conf.d
+``
 #### 进度记录
 已经搭好了基本框架，目前做好的：
 * 基本框架和每个页面的渲染。
