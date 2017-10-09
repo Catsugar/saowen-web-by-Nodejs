@@ -6,7 +6,7 @@ var express=require('express'),//加载模块
     session = require('express-session'),
     http = require('http'),
     logger = require('morgan');
-var port=process.env.PORT || 80; //设置端口
+var port=process.env.PORT || 3000; //设置端口
 var app=express();//启动web服务器
 var fs=require('fs');
 //启动数据库
@@ -59,7 +59,7 @@ if('development'===app.get('env')){
   //mongoose.set('debug',true);
 }
 app.listen(port)//监听端口
-app.set('port',80);
+app.set('port',3000);
 console.log(port+'端口启动');
 //设置模板
 var partials = require('express-partials');
