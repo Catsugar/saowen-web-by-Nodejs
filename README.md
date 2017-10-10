@@ -145,6 +145,7 @@ apt-get install vim openssl build-essential libssl-dev wget curl git
 ```
 
 * 安装nvm
+
 ```
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash
 nvm install v6.11.3
@@ -165,14 +166,14 @@ npm --registry=https://registry.npm.taobao.org install -g cnpm
 
 cnpm install webpack grunt-cli -g
 
-``
+```
 * 安装
 
 ```
 apt-get install nginx 
 /etc/nginx/conf.d
 
-``
+```
 
 
 
