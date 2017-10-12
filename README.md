@@ -4,9 +4,36 @@
 >所有素材来自网络
 <hr>
 
+# 我的第一个比较完整的Nodejs项目，终于部署上线啦，✌开心！
+
+[预览地址](http://47.95.114.86/)
+[代码地址](https://github.com/Catsugar/saowen-web-by-Nodejs)
+
+
+# 现在再写它的移动端，打算用来练习Vuejs, [戳我去隔壁](https://github.com/Catsugar/saowen-app-by-Vue/)
+
+***
+
 ### 用到的技术栈
 Node.js+Express+MongoDB+ejs
-<hr>
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# open project
+cd saowen-app-by-Vue 
+
+# run
+grunt
+
+# look at localhost:3000
+
+```
+
+***
 
 #### 功能介绍
 
@@ -25,7 +52,7 @@ Node.js+Express+MongoDB+ejs
 * 每个user都可以在小说下打分，添加tag,和评论。评论后台可以删除。
 * 当然，这些都是在登陆情况下可操作，没登陆会提醒登陆。
 * 搜索功能可以按照作者，标题和tag搜索。
-* 暂时先这样了，发现bug再改
+* 暂时先这样了，发现bug再改。
 
 #### 项目预览
 预览1<br>
@@ -125,55 +152,6 @@ npm install should --save
 * 买服务器和域名
 * 配置环境
 
-```
-vi /etc/ssh/sshd_config
-
-```
-
-* 更新
-
-```
-apt-get update
-
-```
-
-* 安装相关模块
-
-```
-apt-get install vim openssl build-essential libssl-dev wget curl git
-
-```
-
-* 安装nvm
-
-```
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash
-nvm install v6.11.3
-nvm use v6.11.3
-nvm alias default v6.11.3
-node -v
-
-```
-* 指定npm配置
-
-```
-npm --registry=https://registry.npm.taobao.org install -g npm
-
-npm -v
-echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
-
-npm --registry=https://registry.npm.taobao.org install -g cnpm
-
-cnpm install webpack grunt-cli -g
-
-```
-* 安装
-
-```
-apt-get install nginx 
-/etc/nginx/conf.d
-
-```
 
 
 
