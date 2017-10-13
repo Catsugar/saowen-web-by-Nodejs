@@ -57,9 +57,11 @@ var path=require('path');
       return;
     }
     novels.findOne({}).sort({'id': -1}).exec(function(err,lastnovel) { 
+      if (err) {console.log(err);}
       authors.findOne({}).sort({'id': -1}).exec(function(err,lastauthor) {  
-        var authorLen=parseInt(lastauthor.id.slice(2));
-        var novelLen=parseInt(lastnovel.id.slice(2));
+        if (err) {console.log(err);}
+        var authorLen=(lastauthor!=null)? parseInt(lastauthor.id.slice(2)) : 0;
+        var novelLen=(lastnovel!=null)? parseInt(lastnovel.id.slice(2)) : 0;
         novels.findOne({name:Newname}).exec(function (err, novel) {
           if (err) {console.log(err);}
           authors.findOne({name:Newauthor}).exec(function (err, author) {
@@ -117,7 +119,8 @@ var path=require('path');
     }
     console.log('修改后'+collectObj);
     collections.findOne({}).sort({'id': -1}).exec(function(err,lastcollect) {
-      var collectLen=parseInt(lastcollect.id.slice(2));
+      if (err) {console.log(err);}
+      var collectLen=(lastcollect !=null)? parseInt(lastcollect.id.slice(2)) : 0;
       collections.findOne({name:Newname}).exec(function (err, collect) {
         if (err) {console.log(err);}
         users.findOne({_id:collectObj.editor}).exec(function (err, user) {
@@ -146,10 +149,12 @@ var path=require('path');
     var commentObj = req.body.newcomment;
     var novelID=commentObj.novelID;
     novels.findOne({_id:novelID}).exec(function (err, novel) {
+      if (err) {console.log(err);}
       comments.findOne({}).sort({'id': -1}).exec(function(err,lastcomment) {
+        if (err) {console.log(err);}
         users.findOne({_id:commentObj.userID}).exec(function (err, user) {
           if(user!==null){
-            var commentLen=parseInt(lastcomment.id.slice(2));
+            var commentLen=(lastcomment!=null)? parseInt(lastcomment.id.slice(2)) : 0;
             if (err) {console.log(err);}
             var _comment=createComment(commentObj,commentLen); 
             _comment.save(function (err, comment) {
@@ -182,7 +187,7 @@ var path=require('path');
   //增加作者函数
   function createAuthor(novelObj,len) {
     var  _author= new authors({
-        id: 'a'+("000000" + (len+1)).slice(-6),
+        id: 'a'+('000000' + (len+1)).slice(-6),
         name: novelObj.author,
         description: '',
         editor:  novelObj.editor,

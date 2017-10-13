@@ -22,16 +22,17 @@ Node.js+Express+MongoDB+ejs
 ## Build Setup
 
 ``` bash
-# install dependencies
-npm install
-
 # open project
 cd saowen-app-by-Vue 
 
-# run
-grunt
+# install dependencies
+npm install
 
-# look at localhost:3000
+
+# run
+grunt 
+
+# listening at localhost:3000
 
 ```
 

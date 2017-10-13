@@ -13,7 +13,8 @@ var bcrypt= require('bcryptjs'),//加密库
     var Newname=userObj.name;
     var Newemaill=userObj.emaill;
     users.findOne({}).sort({'id': -1}).exec(function(err,lastuser) {
-      var userLen=parseInt(lastuser.id.slice(2));
+      if (err) {console.log(err);}
+      var userLen=(lastuser!=null)? parseInt(lastuser.id.slice(2)) : 0;
       users.findOne({$or: [{name:Newname}, {emaill:Newemaill}]}).exec(function (err, user) {
         if (err) {console.log(err);}
         if(user!==null){
