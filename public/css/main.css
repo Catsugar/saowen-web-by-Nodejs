@@ -1,12 +1,19 @@
 @charset "utf-8";
+html{height:100%;}
+body{
+	min-height:100%;
+	margin:0;
+	padding:0;
+	position:relative;
+    background-color:rgb(239,238,235);}
 body,a,li,ul,div,input,h3{
 	font: 16px "Microsoft Yahei", "微软雅黑";
 	color:#333;
 	list-style:none;
 	margin:0px;
 	padding:0px;}
+a:link,a:visited,a:active{text-decoration:none;}
 a:hover{font-weight:bold;text-decoration:none;color:#333;}
-body{background-color:rgb(239,238,235);}
 .comWidth{
 	width:1200px;
 	margin:0 auto;}
@@ -99,8 +106,7 @@ hr{padding:0;margin:10px 0;}
 	color:#CCC;
 	font-size:18px;
 	margin-top:5px;
-	width: 25px;
-}
+	width: 25px;}
 .nav-right ul{
 	margin-left:20px;
 	width:200px;}
@@ -111,8 +117,7 @@ hr{padding:0;margin:10px 0;}
 .user-head a{
 	color:#eee;
 	margin-left:10px;
-	vertical-align: middle;
-}
+	vertical-align: middle;}
 .user-list{
 	position: absolute;
 	top:50px;
@@ -136,8 +141,7 @@ hr{padding:0;margin:10px 0;}
 	border-radius: 50%;
 	background-size:cover;
 	background-position: center;
-	display: inline-block;
-}
+	display: inline-block;}
 .leftphoto{
 	width: 60px;
 	height:60px;
@@ -312,8 +316,6 @@ hr{padding:0;margin:10px 0;}
 .replybox li{
 	padding-left:30px;
 	padding-bottom: 20px;}
-
-
 /********实现切换效果**********/
 .state{
 	display:none;}
@@ -372,9 +374,7 @@ textarea{
 .uploadbtn{
 	position: absolute;
 	left: 190px;
-	top:0px;
-}
-
+	top:0px;}
 .modal-dialog{	
 	width:300px;
 	position:fixed;
@@ -434,11 +434,8 @@ textarea{
 	border-radius: 50%;
 	background-size:cover;
 	background-position: center;
-
 }
-
 .photobox:hover{box-shadow: 0 0 1rem rgba(0,0,0,0.5);}
-
 .back h3{
 	text-align:center;
 	padding :20px 0 0 0;}
