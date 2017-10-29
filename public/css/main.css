@@ -156,14 +156,14 @@ hr{padding:0;margin:10px 0;}
 .main-left{
 	width:67%;
 	float:left;
-	margin-bottom:30px;
-	min-height:720px;}
+	margin-bottom:60px;
+	min-height:660px;}
 .main-right{
 	margin-left:3%;
 	width:30%;
 	margin-top:10px;
 	float:left;
-	margin-bottom:30px;}
+	margin-bottom:60px;}
 .main-left h3{
 	text-align:left;}	
 /******************左边布局********************/
