@@ -128,7 +128,6 @@ npm install grunt-concurrent --save
 
 npm install grunt-nodemon --save
 
-npm install bcryptjs --save
 
 ```
 #### 密码加密
