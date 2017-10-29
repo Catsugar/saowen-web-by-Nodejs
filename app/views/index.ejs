@@ -20,7 +20,7 @@
         <% for(var i=0;i<Math.floor(comment.score)%2;i++){ %>
           <i class="score iconfont icon-wujiaoxing"></i>
         <% } %>
-        <span class="pull-right" style="font-size:13px;"><%=moment(comment.meta.updateAt).format(' hh:mm:ss    MM/DD/YYYY') %></span>
+        <span class="pull-right"><%=moment(comment.meta.updateAt).format('YYYY/MM/DD  hh:mm:ss') %></span>
         <hr>
         <% if (comment.novelID.tags.length) { %> 
         <% comment.novelID.tags.forEach(function(item){ %>
