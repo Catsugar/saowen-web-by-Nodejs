@@ -8,7 +8,7 @@
 
 ## 我的第一个比较完整的Nodejs项目，终于部署上线啦，✌开心！
 
-## [预览地址](http://47.95.114.86/)
+## [预览地址](http://www.catsugar.site/)
 ## [代码地址](https://github.com/Catsugar/saowen-web-by-Nodejs)
 
 
