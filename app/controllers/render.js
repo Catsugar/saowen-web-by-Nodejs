@@ -5,7 +5,7 @@ var authors=require('../models/author.js');
 var collections=require('../models/collection.js');
 var comments=require('../models/comment.js');
 var _underscore=require('underscore');
-var count=8;//每页几条数据
+var count=12;//每页几条数据
  //首页
   exports.index=function(req,res){
     console.log('user in session:');
