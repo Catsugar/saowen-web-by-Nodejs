@@ -2,7 +2,6 @@
 html{height:100%;}
 body{
 	min-height:100%;
-	margin:0;
 	width: 100%;
     height: 100%;
     padding-bottom: 150px;
@@ -266,7 +265,6 @@ hr{padding:0;margin:10px 0;}
 	color:#fff;}
 /*************页脚******************/
 .foot{
-   margin-top: -150px;
    clear:both;
    width:100%;
    min-width:1200px;
@@ -428,7 +426,9 @@ textarea{
 	position:relative;
 	min-height:500px;
 	padding:20px 1px;
-	z-index:0;}
+	z-index:0;
+	clear:both;
+}
 .photobox{
 	box-shadow: 0  0 0.5rem rgba(0,0,0,0.5);
 	width: 100px;
