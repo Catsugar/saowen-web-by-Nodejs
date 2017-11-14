@@ -72,7 +72,8 @@ hr{padding:0;margin:10px 0;}
 	font-weight:bold;
 	color:#FFF;
 	transition:all ease-in 0.2s;}
-.nav-left a:hover{font-size:30px;}
+.nav-left a:hover{
+	font-size:32px;}
 .nav-middle,.nav-right ul{
 	flex:1 1 auto;
 	display: -webkit-inline-flex;
@@ -90,6 +91,26 @@ hr{padding:0;margin:10px 0;}
 .nav-middle li:hover a,.header_middle li:active a{
 	font-weight:bold;
 	color:#333;}
+/*二维码*/
+.wap{
+	position: relative;}
+.erweima{
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	background-image: url('/images/erweima.png');
+	background-size: contain;
+	border-radius: 3px;
+	box-shadow: 0px 0px 7px rgba(33,33,33,0.7);
+	top:120px;
+	left: 60px;
+	z-index: 50;
+	transition: all 0.5s;}
+.wap:hover .erweima{
+    width: 130px;
+	height: 130px;
+    left: 0px;
+    top:60px;}
 .nav-right input{
 	width:250px;
 	height:30px;

@@ -52,7 +52,7 @@ var path=require('path');
     var novelObj = req.body.newnovel;
     var Newname=novelObj.name;
     var Newauthor=novelObj.author;
-    if((Newname=='undefined' || '') || (Newauthor=='undefined' || '')){
+    if((Newname==undefined || '') || (Newauthor==undefined || '')){
       console.log('没有填写完整');
       return;
     }
@@ -113,11 +113,13 @@ var path=require('path');
   exports.Addcollect=function(req,res){
     var collectObj = req.body.newcollect;
     var Newname=collectObj.name;
-    console.log(collectObj);
+    if(Newname==undefined || ''){
+      console.log('没有填写完整');
+      return;
+    }
     if(req.poster){
       collectObj.cover="cover/"+req.poster;
     }
-    console.log('修改后'+collectObj);
     collections.findOne({}).sort({'id': -1}).exec(function(err,lastcollect) {
       if (err) {console.log(err);}
       var collectLen=(lastcollect !=null)? parseInt(lastcollect.id.slice(2)) : 0;
