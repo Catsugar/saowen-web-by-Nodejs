@@ -105,12 +105,14 @@ hr{padding:0;margin:10px 0;}
 	top:120px;
 	left: 60px;
 	z-index: 50;
+	opacity: 0;
 	transition: all 0.5s;}
 .wap:hover .erweima{
     width: 130px;
 	height: 130px;
     left: 0px;
-    top:60px;}
+    top:60px;
+    opacity: 1;}
 .nav-right input{
 	width:250px;
 	height:30px;
