@@ -2,19 +2,26 @@
 
 >仿扫文小院
 
->用于练习和学习
+>用于练习和学习node.js
 
->所有素材来自网络
+>所有素材来自网络，仅供个人学习和练习使用
+
 
 ***
 
 ## 我的第一个比较完整的Nodejs项目，终于部署上线啦，✌开心！
 
-## [预览地址](http://saowen.catsugar.site/)
+## [预览地址](http://saowen.catsugar.site)
 ## [代码地址](https://github.com/Catsugar/saowen-web-by-Nodejs)
 
+***
 
-## 现在再写它的移动端，打算用来练习Vuejs, [戳我去隔壁](https://github.com/Catsugar/saowen-app-by-Vue/)
+## 隔壁是为了我正在写的学习Vuejs的联动项目, [戳我去隔壁](https://github.com/Catsugar/saowen-app-by-Vue/)
+
+## [代码地址](https://github.com/Catsugar/saowen-app-by-Vue)
+## [电脑端地址](http://saowen.catsugar.site:3389/)
+## 手机预览，扫二维码：
+![截图1](https://catsugar.github.io/pics/erweima.png)
 
 ***
 
